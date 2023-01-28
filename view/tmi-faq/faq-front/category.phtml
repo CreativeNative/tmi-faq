@@ -1,0 +1,77 @@
+<?php
+$this->mainMenu()->setActiveItemId('nav-faq');
+$domain = $this->translate('terra-mia-domain');
+$category = $this->category;
+$translatedCategoryName = $this->translate($category['name']['translation_key']);
+$translatedCategorySlug = $this->translate($category['slug']['translation_key']);
+if (!empty($translatedCategorySlug)) {
+    $categoryUrl = $domain . $this->url(
+            'faq-front/category',
+            [
+                'category' => $translatedCategorySlug
+            ]
+        );
+}
+?>
+    <div class="media-container">
+        <div class="img-bg lazy" data-src="/resources/terra-mia/img/cefalu.jpg"></div>
+        <div class="container content">
+            <div class="row">
+                <div class="col-12">
+                    <?php
+                    $breadcrumbs  = [
+                        $this->translate('Homepage') => $this->url('home', [], ['force_canonical' => true]),
+                        $this->translate('FAQ') => $this->url('faq', [], ['force_canonical' => true]),
+                    ];
+                    if (!empty($categoryUrl)) {
+                        $breadcrumbs[$translatedCategoryName] = $categoryUrl;
+                    }
+                    $this->pageBreadcrumbs()->setItems($breadcrumbs);
+                    echo $this->pageBreadcrumbs()->render();
+
+                    $this->socialSharer()->setUrl($this->url('faq', [], ['force_canonical' => true]));
+                    $this->socialSharer()->setTitle($this->title);
+                    $this->socialSharer()->setTeaser($this->teaser);
+                    $this->socialSharer()->setImage($this->defaultImage);
+                    echo $this->socialSharer()->render();
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container content">
+        <div class="row">
+            <div class="col-12"><h1><?php echo $translatedCategoryName; ?></h1></div>
+            <div class="col-12 col-md-6">
+                <?php
+                echo $category['teaser'];
+                echo '<ul>';
+                    foreach ($category['faqs'] as $faq) {
+                    $faqUrl = $this->url(
+                    'faq-front/category/question',
+                    [
+                    'category' => $translatedCategorySlug,
+                    'slug'     => $faq['slug'],
+                    ]
+                    );
+                    echo '<li><a href="' . $faqUrl . '">' . $faq['question'] . '</a></li>';
+                    }
+                    echo '</ul>';
+                    ?>
+            </div>
+            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <img src="/resources/realestate/img/faq.svg" class="img-fluid" alt="<?php
+                echo $translatedCategoryName; ?>"/>
+            </div>
+        </div>
+    </div>
+<?php
+if (!empty($this->layout()->cacheId)) {
+    $this->inlineScript()->appendFile('/js/basic-' . $this->layout()->cacheId . '.js');
+} else {
+    $this->inlineScript()
+        ->appendFile('/node_modules/jquery/dist/jquery.min.js')
+        ->appendFile('/node_modules/jquery-lazy/jquery.lazy.min.js')
+        ->appendFile('/resources/application/js/general.js');
+}
+?>

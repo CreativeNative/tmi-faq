@@ -1,0 +1,233 @@
+<?php
+$this->mainMenu()->setActiveItemId('faq');
+$this->mainMenu()->setActiveItemId('faq-category');
+/** @var TmiFaq\Entity\FaqCategoryEntity $entity */
+$entity = $this->entity;
+$id = $entity->getId();
+/** @var TmiFaq\Form\FaqCategoryForm $form */
+$form->prepare();
+$form->setAttribute('action', $this->url('faq-back/category/edit', ['id' => $id, 'locale' => $this->locale]));
+echo $this->form()->openTag($form);
+if ($entity->getSlug() !== null) {
+    $domainDe = $this->translate('terra-mia-domain', 'default', 'de_DE');
+    $urlDe = $domainDe . $this->url(
+            'faq-front/category',
+            [
+                'category' => $this->translate(
+                    $entity->getSlug()->getTranslationKey(),
+                    'default',
+                    'de_DE'
+                ),
+            ],
+            ['locale' => 'de_DE']
+        );
+
+    $domainEn = $this->translate('terra-mia-domain', 'default', 'en_US');
+    $urlEn = $domainEn . $this->url(
+            'faq-front/category',
+            [
+                'category' => $this->translate(
+                    $entity->getSlug()->getTranslationKey(),
+                    'default',
+                    'en_US'
+                ),
+            ],
+            ['locale' => 'en_US']
+        );
+    $domainIt = $this->translate('terra-mia-domain', 'default', 'it_IT');
+    $urlIt = $domainIt . $this->url(
+            'faq-front/category',
+            [
+                'category' => $this->translate(
+                    $entity->getSlug()->getTranslationKey(),
+                    'default',
+                    'it_IT'
+                ),
+            ],
+            ['locale' => 'it_IT']
+        );
+}
+?>
+<div class="container-fluid">
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1><?php
+                        echo $entity->getTranslationKeyForName(); ?> /
+                        <?php
+                        echo $entity->getTranslationKeyForSlug(); ?></h1>
+                </div>
+                <div>
+                    <?php
+                    if (!empty($urlDe)) : ?>
+                        <a target="_blank" href="<?php
+                        echo $urlDe;
+                        ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
+                            echo $this->translate('German'); ?></a>
+                    <?php
+                    endif; ?>
+                    <?php
+                    if (!empty($urlEn)) : ?>
+                        <a target="_blank" href="<?php
+                        echo $urlEn
+                        ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
+                            echo $this->translate('English'); ?>
+                        </a>
+                    <?php
+                    endif; ?>
+                    <?php
+                    if (!empty($urlIt)) : ?>
+                        <a target="_blank" href="<?php
+                        echo $urlIt
+                        ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
+                            echo $this->translate('Italian'); ?>
+                        </a>
+                    <?php
+                    endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <?php
+            $this->pageBreadcrumbs()->setItems(
+                [
+                    $this->translate('Categories')                              => $this->url('faq-back/category'),
+                    $this->translate($entity->getName()->getTranslationKey()) => $this->url(
+                        'faq-back/category/edit',
+                        [
+                            'id'     => $id,
+                            'locale' => $this->locale
+                        ]
+                    )
+                ]
+            );
+            echo $this->pageBreadcrumbs()->render();
+
+            echo $this->formRow($form->get('id'));
+
+            if (!empty($this->message) && is_array($this->message)) {
+                echo '<div class="alert ' . $this->message["class"] . ' " role="alert">';
+                echo $this->translate($this->message['message']);
+                echo '</div>';
+            }
+            if (!empty($form->getMessages()) && is_array($form->getMessages())) {
+                echo '<div class="alert alert-danger" role="alert">';
+                echo '<pre>' . print_r($form->getMessages(), true) . '</pre>';
+                echo '</div>';
+            }
+
+            echo $this->partial(
+                'admin/faq-category/partial/nav',
+                [
+                    'id'     => $id,
+                    'active' => $this->locale
+                ]
+            );
+            ?>
+            <h2><?php echo $this->translate('Description') ?></h2>
+        </div>
+        <div class="col-12 col-md-6">
+            <?php
+            echo $this->formLabel($form->get('name'));
+            echo $this->formSelect($form->get('name'));
+            echo $this->formElementErrors($form->get('name'));
+            ?>
+        </div>
+        <div class="col-12 col-md-6">
+            <?php
+            echo $this->formLabel($form->get('slug'));
+            echo $this->formSelect($form->get('slug'));
+            echo $this->formElementErrors($form->get('slug'));
+            ?>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <?php
+                echo $this->formLabel($form->get('title')); ?>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="titleLength"></span>
+                    </div>
+                    <?php
+                    echo $this->formElement($form->get('title')); ?>
+                    <div class="input-group-append">
+                        <span class="input-group-text">40-70</span>
+                    </div>
+                </div>
+                <?php
+                echo $this->formElementErrors(
+                    $form->get('title'),
+                    ['class' => 'text-danger m-0']
+                ); ?>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <?php
+                echo $this->formLabel($form->get('description')); ?>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="descriptionLength"></span>
+                    </div>
+                    <?php
+                    echo $this->formElement($form->get('description')); ?>
+                    <div class="input-group-append">
+                        <span class="input-group-text">130-160</span>
+                    </div>
+                </div>
+                <?php
+                echo $this->formElementErrors(
+                    $form->get('description'),
+                    ['class' => 'text-danger m-0']
+                ); ?>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <?php
+                echo $this->formLabel($form->get('headline')); ?>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="headlineLength"></span>
+                    </div>
+                    <?php
+                    echo $this->formElement($form->get('headline')); ?>
+                    <div class="input-group-append">
+                        <span class="input-group-text">40-70</span>
+                    </div>
+                </div>
+                <?php
+                echo $this->formElementErrors($form->get('title')); ?>
+            </div>
+        </div>
+        <div class="col-12">
+            <?php
+            echo $this->formLabel($form->get('teaser'));
+            echo $this->formElement($form->get('teaser'));
+            echo $this->formElementErrors($form->get('teaser'), ['class' => 'text-danger m-0']);
+            ?>
+            <div id="word-count-teaser" class="small"></div>
+        </div>
+        <div class="col-12">
+            <?php
+            echo $this->formElement($form->get('csrf'));
+            echo $this->formElementErrors($form->get('csrf'), ['class' => 'text-danger m-0']);
+            echo $this->formElement($form->get('form-submit'));
+            echo $this->formElementErrors($form->get('form-submit'), ['class' => 'text-danger m-0']);
+            ?>
+        </div>
+    </div>
+</div>
+<?php
+echo $this->form()->closeTag();
+if (!empty($this->layout()->cacheId)) {
+    $this->inlineScript()->appendFile('/js/admin-faq-category-edit-' . $this->layout()->cacheId . '.js');
+} else {
+    $this->inlineScript()
+        ->appendFile('/resources/admin/js/ckeditor_extended/build/ckeditor.js')
+        ->appendFile('/resources/admin/js/ckeditor_extended/build/translations/de.js')
+        ->appendFile('/resources/admin/js/ckeditor_extended/build/translations/it.js')
+        ->appendFile('/resources/admin/js/faq-category-edit.js');
+}
+?>

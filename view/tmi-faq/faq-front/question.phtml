@@ -1,0 +1,68 @@
+<?php
+$this->mainMenu()->setActiveItemId('nav-faq');
+$question = $this->question;
+$translatedCategoryName = $this->translate($question['category']['name']['translation_key']);
+$translatedCategorySlug = $this->translate($question['category']['slug']['translation_key']);
+$categoryUrl = $this->url(
+        'faq-front/category',
+        [
+            'category' => $translatedCategorySlug
+        ]
+    );
+$questionUrl = $this->url(
+    'faq-front/category/question',
+    [
+        'category' => $translatedCategorySlug,
+        'slug'     => $question['slug'],
+    ]
+);
+?>
+    <div class="media-container">
+        <div class="img-bg lazy" data-src="/resources/terra-mia/img/cefalu.jpg"></div>
+        <div class="container content">
+            <div class="row">
+                <div class="col-12">
+                    <?php
+
+                    $this->pageBreadcrumbs()->setItems(
+                        [
+                            $this->translate('Homepage') => $this->url('home'),
+                            $this->translate('FAQ')      => $this->url('faq'),
+                            $translatedCategoryName      => $categoryUrl,
+                            $question['question']        => $questionUrl,
+                        ]
+                    );
+                    echo $this->pageBreadcrumbs()->render();
+
+                    $this->socialSharer()->setUrl($this->url('faq', [], ['force_canonical' => true]));
+                    $this->socialSharer()->setTitle($this->title);
+                    $this->socialSharer()->setTeaser($this->teaser);
+                    $this->socialSharer()->setImage($this->defaultImage);
+                    echo $this->socialSharer()->render();
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="realestate" class="container content">
+        <div class="row">
+            <div class="col-12"><h1><?php
+                    echo $this->translate('faq-question'); ?></h1></div>
+            <div class="col-12 col-md-6"><?php
+                echo $this->translate('faq-teaser') ?></div>
+            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <img src="/resources/realestate/img/analyse.svg" class="img-fluid" alt="<?php
+                echo $this->translate('terra-mia-homepage-headline'); ?>"/>
+            </div>
+        </div>
+    </div>
+<?php
+if (!empty($this->layout()->cacheId)) {
+    $this->inlineScript()->appendFile('/js/basic-' . $this->layout()->cacheId . '.js');
+} else {
+    $this->inlineScript()
+        ->appendFile('/node_modules/jquery/dist/jquery.min.js')
+        ->appendFile('/node_modules/jquery-lazy/jquery.lazy.min.js')
+        ->appendFile('/resources/application/js/general.js');
+}
+?>

@@ -1,0 +1,6 @@
+parameters:
+    parallel:
+          processTimeout: 180.0
+    tmpDir: cache
+    paths:
+        - src

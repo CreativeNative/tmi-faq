@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h1><?php echo $this->translate('FAQ') . ' - ' .  $this->translate('Categories'); ?></h1>
+            <a href="<?php echo $this->url('faq-back/category/create') ?>" class="btn btn-primary mb-3"><?php
+                echo $this->translate('Create category') ?></a>
+
+            <div id="content-container" class="form-group mb-3"></div>
+
+            <div class="table-responsive">
+                <table id="data-table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name (key)</th>
+                        <th scope="col">Name (translation)</th>
+                        <th scope="col">Slug (key)</th>
+                        <th scope="col">Slug (translation)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="item_list">
+                    <?php
+                    foreach ($this->category as $category) :
+                        /** @var $category TmiFaq\Entity\FaqCategoryEntity */
+                        ?>
+                        <tr id="listItem_<?php echo $category['id'] ?>">
+                            <td>
+                                <div class="btn-group btn-group-sm btn-group-toggle">
+                                <a class="btn btn-primary" title="Bearbeiten" href="<?php echo $this->url(
+                                    "admin-faq/category/edit",["id" => $category['id']]) ?>"><i class="fa
+                                    fa-edit"></i></a>
+                                <a class="btn btn-outline-primary sortable" title="Sortieren" href="#"><i
+                                            class="fas fa-arrows-alt-v"></i></a>
+                                </div>
+                            </td>
+                            <td><?php echo $category['name']['translation_key'] ?></td>
+                            <td><?php echo $this->translate($category['name']['translation_key']) ?></td>
+                            <td><?php echo $category['slug']['translation_key'] ?></td>
+                            <td><?php echo $this->translate($category['slug']['translation_key']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+$this->headLink()
+    ->appendStylesheet('/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css');
+if (! empty($this->layout()->cacheId)) {
+    $this->inlineScript()->appendFile('/js/admin-category-index-' . $this->layout()->cacheId . '.js');
+} else {
+    $this->inlineScript()
+        ->appendFile('/node_modules/datatables.net/js/jquery.dataTables.min.js')
+        ->appendFile('/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')
+        ->appendFile('/resources/admin/js/category-index.js');
+}
+?>
