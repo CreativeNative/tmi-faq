@@ -61,7 +61,8 @@ class FaqForm extends Form
                     'label_attributes' => ['class' => 'required'],
                     'label_generator'  => function ($entity) {
                         /** @var FaqCategoryEntity $entity */
-                        return $entity->getName()->getTranslationKey() ?? '';
+                        return $entity->getName() !== null && !empty($entity->getName()->getTranslationKey())
+                            ? $entity->getName()->getTranslationKey() : '';
                     },
                     'find_method'      => [
                         'name' => 'findAllCategoriesForSelect',
@@ -86,7 +87,8 @@ class FaqForm extends Form
                     'target_class'    => FaqCategoryEntity::class,
                     'label_generator' => function ($entity) {
                         /** @var FaqCategoryEntity $entity */
-                        return $entity->getName()->getTranslationKey() ?? '';
+                        return $entity->getName() !== null && !empty($entity->getName()->getTranslationKey())
+                            ? $entity->getName()->getTranslationKey() : '';
                     },
                     'find_method'     => [
                         'name' => 'findAllCategoriesForSelect',
@@ -100,7 +102,6 @@ class FaqForm extends Form
                 ],
             ]
         );
-
 
         $this->add(
             [
@@ -183,8 +184,8 @@ class FaqForm extends Form
 
         $inputFilter->add(
             [
-                'name'       => 'answer',
-                'required'   => true,
+                'name'     => 'answer',
+                'required' => true,
                 'filters'  => [
                     ['name' => Filter\StringTrim::class],
                 ],

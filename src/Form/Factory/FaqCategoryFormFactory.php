@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace TmiFaq\Form\Factory;
 
-use TmiFaq\Form\FaqCategoryForm;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
+use TmiFaq\Form\FaqCategoryForm;
 
 class FaqCategoryFormFactory
 {

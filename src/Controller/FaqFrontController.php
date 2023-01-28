@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace TmiFaq\Controller;
 
-use TmiFaq\Entity\FaqEntity;
-use TmiFaq\Entity\FaqCategoryEntity;
-use TmiFaq\Repository\FaqRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use Laminas\I18n\Translator\Translator;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
+use TmiFaq\Entity\FaqCategoryEntity;
+use TmiFaq\Entity\FaqEntity;
+use TmiFaq\Repository\FaqCategoryRepository;
+use TmiFaq\Repository\FaqRepository;
 
 class FaqFrontController extends AbstractActionController
 {
@@ -28,8 +30,8 @@ class FaqFrontController extends AbstractActionController
         PhpRenderer $renderer
     ) {
         $this->entityManager = $entityManager;
-        $this->translator = $translator;
-        $this->renderer = $renderer;
+        $this->translator    = $translator;
+        $this->renderer      = $renderer;
     }
 
     /**
@@ -37,16 +39,16 @@ class FaqFrontController extends AbstractActionController
      */
     public function indexAction(): ViewModel
     {
-        /** @var \TmiFaq\Repository\FaqCategoryRepository $repository */
+        /** @var FaqCategoryRepository $repository */
         $repository = $this->entityManager->getRepository(FaqCategoryEntity::class);
 
         /** @var array $categories */
         $categories = $repository->getCategoriesWithFaqs();
 
-        $title = $this->translator->translate('terra-mia-title');
+        $title       = $this->translator->translate('terra-mia-title');
         $description = $this->translator->translate('terra-mia-description');
 
-        $domain = $this->translator->translate('terra-mia-domain');
+        $domain   = $this->translator->translate('terra-mia-domain');
         $domainDe = $this->translator->translate('terra-mia-domain', 'default', 'de_DE');
         $domainEn = $this->translator->translate('terra-mia-domain', 'default', 'en_US');
         $domainIt = $this->translator->translate('terra-mia-domain', 'default', 'it_IT');
@@ -89,26 +91,29 @@ class FaqFrontController extends AbstractActionController
         $category = $this->params()->fromRoute('category');
 
         if (empty($category)) {
+            /* @phpstan-ignore-next-line */
             $this->getResponse()->setStatusCode(404);
+
             return new ViewModel();
         }
 
-        /** @var \TmiFaq\Repository\FaqCategoryRepository $repository */
+        /** @var FaqCategoryRepository $repository */
         $repository = $this->entityManager->getRepository(FaqCategoryEntity::class);
 
         /** @var array $categoryEntity */
         $categoryEntity = $repository->getCategory($category);
 
-        if ($categoryEntity === null) {
+        if (empty($categoryEntity)) {
+            /* @phpstan-ignore-next-line */
             $this->getResponse()->setStatusCode(404);
 
             return new ViewModel();
         }
 
-        $title = $this->translator->translate('terra-mia-title');
+        $title       = $this->translator->translate('terra-mia-title');
         $description = $this->translator->translate('terra-mia-description');
 
-        $domain = $this->translator->translate('terra-mia-domain');
+        $domain   = $this->translator->translate('terra-mia-domain');
         $domainDe = $this->translator->translate('terra-mia-domain', 'default', 'de_DE');
         $domainEn = $this->translator->translate('terra-mia-domain', 'default', 'en_US');
         $domainIt = $this->translator->translate('terra-mia-domain', 'default', 'it_IT');
@@ -149,10 +154,10 @@ class FaqFrontController extends AbstractActionController
     public function questionAction(): ViewModel
     {
         $category = $this->params()->fromRoute('category');
-        $slug = $this->params()->fromRoute('slug');
-
+        $slug     = $this->params()->fromRoute('slug');
 
         if (empty($category)) {
+            /* @phpstan-ignore-next-line */
             $this->getResponse()->setStatusCode(404);
 
             return new ViewModel();
@@ -164,7 +169,8 @@ class FaqFrontController extends AbstractActionController
         /** @var array $questionEntity */
         $questionEntity = $repository->findBySlug($slug);
 
-        if ($questionEntity === null) {
+        if (empty($questionEntity)) {
+            /* @phpstan-ignore-next-line */
             $this->getResponse()->setStatusCode(404);
 
             return new ViewModel();
@@ -174,9 +180,7 @@ class FaqFrontController extends AbstractActionController
 
         $result = $this->getNameAndLinks($questionEntity, $repository);
 
-
-
-        $title = $this->translator->translate($questionEntity['category']['name']['translation_key']);
+        $title       = $this->translator->translate($questionEntity['category']['name']['translation_key']);
         $description = $this->translator->translate('terra-mia-description');
 
         $domain = $this->translator->translate('terra-mia-domain');
@@ -212,7 +216,7 @@ class FaqFrontController extends AbstractActionController
     }
 
     /**
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     private function getNameAndLinks(array $faq, FaqRepository $repository): array
     {
@@ -223,67 +227,67 @@ class FaqFrontController extends AbstractActionController
             }
         }
 
-        $germanNameAndSlug = $repository->getGermanNameAndSlugById($faq['id']);
+        $germanNameAndSlug                 = $repository->getGermanNameAndSlugById($faq['id']);
         $translations['de_DE']['question'] = $germanNameAndSlug['question'];
-        $translations['de_DE']['slug'] = $germanNameAndSlug['slug'];
+        $translations['de_DE']['slug']     = $germanNameAndSlug['slug'];
 
-        $domain = $this->translator->translate('terra-mia-domain');
+        $domain   = $this->translator->translate('terra-mia-domain');
         $domainDe = $this->translator->translate('terra-mia-domain', 'default', 'de_DE');
         $domainEn = $this->translator->translate('terra-mia-domain', 'default', 'en_US');
         $domainIt = $this->translator->translate('terra-mia-domain', 'default', 'it_IT');
 
         $canonicalUrl = $domain . $this->url()->fromRoute(
-                'faq-front/category/question',
-                [
-                    'category' => $this->translator->translate($faq['category']['slug']['translation_key']),
-                    'slug'     => $faq['slug'],
-                ]
-            );
+            'faq-front/category/question',
+            [
+                'category' => $this->translator->translate($faq['category']['slug']['translation_key']),
+                'slug'     => $faq['slug'],
+            ]
+        );
 
         $urlDe = '';
-        if (!empty($translations['de_DE']['slug'])) {
+        if (! empty($translations['de_DE']['slug'])) {
             $urlDe = $domainDe . $this->url()->fromRoute(
-                    'faq-front/category/question',
-                    [
-                        'category' => $this->translator->translate(
-                            $faq['category']['slug']['translation_key'],
-                            'default',
-                            'de_DE'
-                        ),
-                        'slug'     => $translations['de_DE']['slug'],
-                    ],
-                    ['locale' => 'de_DE']
-                );
+                'faq-front/category/question',
+                [
+                    'category' => $this->translator->translate(
+                        $faq['category']['slug']['translation_key'],
+                        'default',
+                        'de_DE'
+                    ),
+                    'slug'     => $translations['de_DE']['slug'],
+                ],
+                ['locale' => 'de_DE']
+            );
         }
         $urlEn = '';
-        if (!empty($translations['en_US']['slug'])) {
+        if (! empty($translations['en_US']['slug'])) {
             $urlEn = $domainEn . $this->url()->fromRoute(
-                    'faq-front/category/question',
-                    [
-                        'category' => $this->translator->translate(
-                            $faq['category']['slug']['translation_key'],
-                            'default',
-                            'en_US'
-                        ),
-                        'slug'     => $translations['en_US']['slug'],
-                    ],
-                    ['locale' => 'en_US']
-                );
+                'faq-front/category/question',
+                [
+                    'category' => $this->translator->translate(
+                        $faq['category']['slug']['translation_key'],
+                        'default',
+                        'en_US'
+                    ),
+                    'slug'     => $translations['en_US']['slug'],
+                ],
+                ['locale' => 'en_US']
+            );
         }
         $urlIt = '';
-        if (!empty($translations['it_IT']['slug'])) {
+        if (! empty($translations['it_IT']['slug'])) {
             $urlIt = $domainIt . $this->url()->fromRoute(
-                    'faq-front/category/question',
-                    [
-                        'category' => $this->translator->translate(
-                            $faq['category']['slug']['translation_key'],
-                            'default',
-                            'it_IT'
-                        ),
-                        'slug'     => $translations['it_IT']['slug'],
-                    ],
-                    ['locale' => 'it_IT']
-                );
+                'faq-front/category/question',
+                [
+                    'category' => $this->translator->translate(
+                        $faq['category']['slug']['translation_key'],
+                        'default',
+                        'it_IT'
+                    ),
+                    'slug'     => $translations['it_IT']['slug'],
+                ],
+                ['locale' => 'it_IT']
+            );
         }
         return [
             'questionDe'   => $translations['de_DE']['question'],

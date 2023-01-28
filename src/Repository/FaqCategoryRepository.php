@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace TmiFaq\Repository;
 
-use TmiTranslation\Repository\TranslationEntityRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
 use RuntimeException;
 use TmiFaq\Entity\FaqCategoryEntity;
+use TmiTranslation\Repository\TranslationEntityRepository;
 
+use function locale_get_default;
+
+/**
+ * @extends TranslationEntityRepository<FaqCategoryRepository>
+ */
 class FaqCategoryRepository extends TranslationEntityRepository
 {
     /**
@@ -86,7 +91,6 @@ class FaqCategoryRepository extends TranslationEntityRepository
         );
     }
 
-
     /**
      * - NOT CACHED -
      */
@@ -128,7 +132,8 @@ class FaqCategoryRepository extends TranslationEntityRepository
 
     /**
      * - NOT CACHED
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @throws NonUniqueResultException
      */
     public function findByIdandLocale(int $entityId, string $locale): ?FaqCategoryEntity
     {

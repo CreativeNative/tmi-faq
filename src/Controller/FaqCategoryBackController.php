@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace TmiFaq\Controller;
 
-use TmiFaq\Entity\FaqCategoryEntity;
-use TmiFaq\Form\FaqCategoryForm;
-use TmiFaq\Repository\FaqCategoryRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\Exception\ORMException;
 use DoctrineModule\Validator\NoObjectExists;
 use Laminas\Http\PhpEnvironment\Request;
 use Laminas\Http\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
+use TmiFaq\Entity\FaqCategoryEntity;
+use TmiFaq\Form\FaqCategoryForm;
+use TmiFaq\Repository\FaqCategoryRepository;
 
 class FaqCategoryBackController extends AbstractActionController
 {
@@ -29,20 +29,19 @@ class FaqCategoryBackController extends AbstractActionController
         FaqCategoryForm $categoryForm
     ) {
         $this->entityManager = $entityManager;
-        $this->categoryForm = $categoryForm;
+        $this->categoryForm  = $categoryForm;
     }
 
     public function indexAction(): ViewModel
     {
         /** @var FaqCategoryRepository $repository */
         $repository = $this->entityManager->getRepository(FaqCategoryEntity::class);
-        $entity = $repository->findAllCategories();
+        $entity     = $repository->findAllCategories();
 
         return new ViewModel(['category' => $entity]);
     }
 
     /**
-     * @return Response|ViewModel
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -88,14 +87,14 @@ class FaqCategoryBackController extends AbstractActionController
                 $this->entityManager->flush();
 
                 return $this->redirect()->toRoute('faq-back/category/edit', [
-                    'id' => $validatedEntity->getId(),
-                    'locale' => 'de_DE'
+                    'id'     => $validatedEntity->getId(),
+                    'locale' => 'de_DE',
                 ]);
             }
 
             $message = [
                 'message' => 'message_persistens_incomplete',
-                'class'   => 'alert-danger'
+                'class'   => 'alert-danger',
             ];
         }
 
@@ -108,7 +107,6 @@ class FaqCategoryBackController extends AbstractActionController
     }
 
     /**
-     * @return Response|ViewModel
      * @throws NoResultException
      * @throws NonUniqueResultException
      * @throws ORMException
@@ -116,8 +114,8 @@ class FaqCategoryBackController extends AbstractActionController
      */
     public function editAction(): Response|ViewModel
     {
-        $entityId = (int)$this->params()->fromRoute('id');
-        $locale = (string)$this->params()->fromRoute('locale', 'de_DE');
+        $entityId = (int) $this->params()->fromRoute('id');
+        $locale   = (string) $this->params()->fromRoute('locale', 'de_DE');
 
         if ($entityId <= 0) {
             return $this->redirect()->toRoute('faq-back/category');

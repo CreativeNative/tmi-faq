@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace TmiFaq\Repository;
 
-use TmiTranslation\Repository\TranslationEntityRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\NonUniqueResultException;
 use TmiFaq\Entity\FaqEntity;
+use TmiTranslation\Repository\TranslationEntityRepository;
 
+use function locale_get_default;
+
+/**
+ * @extends TranslationEntityRepository<FaqRepository>
+ */
 class FaqRepository extends TranslationEntityRepository
 {
-
     private string $locale;
 
     public function __construct(EntityManagerInterface $entityManager, ClassMetadata $class)
@@ -117,7 +121,7 @@ class FaqRepository extends TranslationEntityRepository
      *
      * Return faq for updating
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findByIdForUpdate(int $entityId): ?FaqEntity
     {
@@ -144,5 +148,4 @@ class FaqRepository extends TranslationEntityRepository
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
-
 }

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace TmiFaq\Form;
 
-use TmiFaq\Entity\FaqCategoryEntity;
-use TmiTranslation\Entity\TranslationEntity;
 use Doctrine\Laminas\Hydrator\DoctrineObject as DoctrineHydrator;
 use Doctrine\ORM\EntityManager;
+use DoctrineModule\Form\Element\ObjectSelect;
 use Laminas\Filter;
 use Laminas\Form\Element;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use DoctrineModule\Form\Element\ObjectSelect;
+use TmiFaq\Entity\FaqCategoryEntity;
+use TmiTranslation\Entity\TranslationEntity;
 
 class FaqCategoryForm extends Form
 {

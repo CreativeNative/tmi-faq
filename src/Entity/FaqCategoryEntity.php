@@ -52,8 +52,10 @@ class FaqCategoryEntity
      *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="faq_id", referencedColumnName="id")}
      * )
+     *
+     * @var ArrayCollection
      */
-    private iterable $faqs;
+    private Collection $faqs;
 
     /**
      * @ORM\OneToMany(
@@ -108,7 +110,7 @@ class FaqCategoryEntity
 
     public function __construct()
     {
-        $this->faqs      = new ArrayCollection();
+        $this->faqs         = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -199,21 +201,21 @@ class FaqCategoryEntity
         $this->name = null;
     }
 
-    public function getName(): ?Translation
+    public function getName(): ?TranslationEntity
     {
         return $this->name;
     }
 
     public function getTranslationKeyForName(): ?string
     {
-        if ($this->name instanceof Translation) {
+        if ($this->name instanceof TranslationEntity) {
             return $this->name->getTranslationKey();
         }
 
         return null;
     }
 
-    public function setName(Translation $translation): void
+    public function setName(TranslationEntity $translation): void
     {
         $this->name = $translation;
     }
@@ -223,21 +225,21 @@ class FaqCategoryEntity
         $this->slug = null;
     }
 
-    public function getSlug(): ?Translation
+    public function getSlug(): ?TranslationEntity
     {
         return $this->slug;
     }
 
     public function getTranslationKeyForSlug(): ?string
     {
-        if ($this->slug instanceof Translation) {
+        if ($this->slug instanceof TranslationEntity) {
             return $this->slug->getTranslationKey();
         }
 
         return null;
     }
 
-    public function setSlug(Translation $translation): void
+    public function setSlug(TranslationEntity $translation): void
     {
         $this->slug = $translation;
     }

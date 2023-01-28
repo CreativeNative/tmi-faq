@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass="TmiFaq\Repository\FaqRepository")
@@ -101,7 +100,7 @@ class FaqEntity
     public function __construct()
     {
         $this->translations = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+        $this->categories   = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +113,11 @@ class FaqEntity
         $this->locale = $locale;
     }
 
+    public function getTranslatableLocale(): string
+    {
+        return $this->locale;
+    }
+
     /**
      * @return ArrayCollection
      */
@@ -124,7 +128,7 @@ class FaqEntity
 
     public function addTranslation(FaqTranslationEntity $translation): void
     {
-        if (!$this->translations->contains($translation)) {
+        if (! $this->translations->contains($translation)) {
             $this->translations[] = $translation;
             $translation->setObject($this);
         }
@@ -174,7 +178,7 @@ class FaqEntity
 
     public function removeCategory(FaqCategoryEntity $category): void
     {
-        if (!$this->categories->contains($category)) {
+        if (! $this->categories->contains($category)) {
             return;
         }
 
