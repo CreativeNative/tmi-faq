@@ -30,8 +30,8 @@ class FaqCategoryRepository extends TranslationEntityRepository
 
         $queryBuilder->select(
             'Category',
-            'partial Slug.{id, translation_key}',
-            'partial Name.{id, translation_key}',
+            'partial Slug.{id, translationKey}',
+            'partial Name.{id, translationKey}',
             'partial Faqs.{id, question, slug}'
         )
             ->from(FaqCategoryEntity::class, 'Category')
@@ -73,8 +73,8 @@ class FaqCategoryRepository extends TranslationEntityRepository
 
         $queryBuilder->select(
             'partial Category.{id, description}',
-            'partial Slug.{id, translation_key}',
-            'partial Name.{id, translation_key}',
+            'partial Slug.{id, translationKey}',
+            'partial Name.{id, translationKey}',
             'partial Faqs.{id, question, slug}'
         )
             ->from(FaqCategoryEntity::class, 'Category')
@@ -104,8 +104,8 @@ class FaqCategoryRepository extends TranslationEntityRepository
 
         $queryBuilder->select(
             'partial Category.{id}',
-            'partial Slug.{id, translation_key}',
-            'partial Name.{id, translation_key}'
+            'partial Slug.{id, translationKey}',
+            'partial Name.{id, translationKey}'
         )
             ->from(FaqCategoryEntity::class, 'Category')
             ->leftJoin('Category.slug', 'Slug')

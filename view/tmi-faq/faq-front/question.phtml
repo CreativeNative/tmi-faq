@@ -1,8 +1,8 @@
 <?php
 $this->mainMenu()->setActiveItemId('nav-faq');
 $question = $this->question;
-$translatedCategoryName = $this->translate($question['category']['name']['translation_key']);
-$translatedCategorySlug = $this->translate($question['category']['slug']['translation_key']);
+$translatedCategoryName = $this->translate($question['category']['name']['translationKey']);
+$translatedCategorySlug = $this->translate($question['category']['slug']['translationKey']);
 $categoryUrl = $this->url(
         'faq-front/category',
         [

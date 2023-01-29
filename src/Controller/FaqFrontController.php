@@ -180,7 +180,7 @@ class FaqFrontController extends AbstractActionController
 
         $result = $this->getNameAndLinks($questionEntity, $repository);
 
-        $title       = $this->translator->translate($questionEntity['category']['name']['translation_key']);
+        $title       = $this->translator->translate($questionEntity['category']['name']['translationKey']);
         $description = $this->translator->translate('terra-mia-description');
 
         $domain = $this->translator->translate('terra-mia-domain');
@@ -239,7 +239,7 @@ class FaqFrontController extends AbstractActionController
         $canonicalUrl = $domain . $this->url()->fromRoute(
             'faq-front/category/question',
             [
-                'category' => $this->translator->translate($faq['category']['slug']['translation_key']),
+                'category' => $this->translator->translate($faq['category']['slug']['translationKey']),
                 'slug'     => $faq['slug'],
             ]
         );
@@ -250,7 +250,7 @@ class FaqFrontController extends AbstractActionController
                 'faq-front/category/question',
                 [
                     'category' => $this->translator->translate(
-                        $faq['category']['slug']['translation_key'],
+                        $faq['category']['slug']['translationKey'],
                         'default',
                         'de_DE'
                     ),
@@ -265,7 +265,7 @@ class FaqFrontController extends AbstractActionController
                 'faq-front/category/question',
                 [
                     'category' => $this->translator->translate(
-                        $faq['category']['slug']['translation_key'],
+                        $faq['category']['slug']['translationKey'],
                         'default',
                         'en_US'
                     ),
@@ -280,7 +280,7 @@ class FaqFrontController extends AbstractActionController
                 'faq-front/category/question',
                 [
                     'category' => $this->translator->translate(
-                        $faq['category']['slug']['translation_key'],
+                        $faq['category']['slug']['translationKey'],
                         'default',
                         'it_IT'
                     ),

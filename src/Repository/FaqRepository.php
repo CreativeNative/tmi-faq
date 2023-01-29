@@ -39,11 +39,11 @@ class FaqRepository extends TranslationEntityRepository
             'Faq',
             'partial FaqTranslation.{id, content, field, locale}',
             'partial Categories.{id}',
-            'partial Slugs.{id, translation_key}',
-            'partial Names.{id, translation_key}',
+            'partial Slugs.{id, translationKey}',
+            'partial Names.{id, translationKey}',
             'partial Category.{id}',
-            'partial Slug.{id, translation_key}',
-            'partial Name.{id, translation_key}'
+            'partial Slug.{id, translationKey}',
+            'partial Name.{id, translationKey}'
         )
             ->from(FaqEntity::class, 'Faq')
             ->leftJoin('Faq.translations', 'FaqTranslation')
@@ -104,7 +104,7 @@ class FaqRepository extends TranslationEntityRepository
         $queryBuilder->select(
             'Faq',
             'partial Category.{id}',
-            'partial Slug.{id, translation_key}',
+            'partial Slug.{id, translationKey}',
             'FaqTranslation'
         )
             ->from(FaqEntity::class, 'Faq')

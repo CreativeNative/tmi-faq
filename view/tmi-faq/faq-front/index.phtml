@@ -33,8 +33,8 @@ $this->mainMenu()->setActiveItemId('nav-faq');
                 <?php
                 echo '<p>' . $this->translate('faq-teaser') . '</p>';
                 foreach ($this->categories as $category) {
-                    $translatedCategoryName = $this->translate($category['name']['translation_key']);
-                    $translatedCategorySlug = $this->translate($category['slug']['translation_key']);
+                    $translatedCategoryName = $this->translate($category['name']['translationKey']);
+                    $translatedCategorySlug = $this->translate($category['slug']['translationKey']);
                     $categoryUrl = $this->url('faq-front/category', ['category' => $translatedCategorySlug]);
                     echo '<h2><a href="' . $categoryUrl . '">' . $translatedCategoryName . '</a></h2>';
                     echo '<p>' . $category['description'] . '</p>';

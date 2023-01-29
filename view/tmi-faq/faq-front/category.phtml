@@ -2,8 +2,8 @@
 $this->mainMenu()->setActiveItemId('nav-faq');
 $domain = $this->translate('terra-mia-domain');
 $category = $this->category;
-$translatedCategoryName = $this->translate($category['name']['translation_key']);
-$translatedCategorySlug = $this->translate($category['slug']['translation_key']);
+$translatedCategoryName = $this->translate($category['name']['translationKey']);
+$translatedCategorySlug = $this->translate($category['slug']['translationKey']);
 if (!empty($translatedCategorySlug)) {
     $categoryUrl = $domain . $this->url(
             'faq-front/category',
