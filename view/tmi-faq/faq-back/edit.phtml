@@ -47,18 +47,16 @@ echo $this->form()->openTag($form);
                 <?php
                 $this->pageBreadcrumbs()->setItems(
                     [
-                        $this->translate('Category')                                             => $this->url(
-                            'faq-back/category'
-                        ),
-                        $this->translate($entity->getCategory()->getName()->getTranslationKey()) => $this->url(
-                            'faq-back/category/edit',
+                        $this->translate('Category') => $this->url('faq-back/category'),
+                        $this->translate($entity->getCategory()->getName()->getTranslationKey())
+                            => $this->url('faq-back/category/edit',
                             [
                                 'id'     => $id,
                                 'locale' => $this->locale
                             ]
                         ),
-                        $this->translate('Question')                                             => $this->url(
-                            'faq-back/edit',
+                        $this->translate('Question')
+                            => $this->url('faq-back/edit',
                             [
                                 'id'     => $id,
                                 'locale' => $this->locale
@@ -82,15 +80,14 @@ echo $this->form()->openTag($form);
                 }
 
                 echo $this->partial(
-                    'admin/faq/partial/nav',
+                    'tmi-faq/faq-back/partial/nav',
                     [
                         'id'     => $id,
                         'active' => $this->locale
                     ]
                 );
                 ?>
-                <h2><?php
-                    echo $this->translate('Description') ?></h2>
+                <h2><?php echo $this->translate('Description') ?></h2>
             </div>
             <div class="col-md-6">
                 <?php
@@ -107,16 +104,14 @@ echo $this->form()->openTag($form);
                 ?>
             </div>
             <div class="col-12">
-                <?php
-                echo $this->formLabel($form->get('question')); ?>
+                <?php echo $this->formLabel($form->get('question')); ?>
                 <div class="input-group">
                     <span id="questionLength" class="input-group-text"></span>
                     <?php
                     echo $this->formElement($form->get('question')); ?>
                     <span class="input-group-text">3-150</span>
                 </div>
-                <?php
-                echo $this->formElementErrors($form->get('question')); ?>
+                <?php echo $this->formElementErrors($form->get('question')); ?>
             </div>
             <div class="col-12">
                 <?php
@@ -131,8 +126,7 @@ echo $this->form()->openTag($form);
                 echo $this->formElement($form->get('form-submit'));
                 ?>
             </div>
-            <?php
-            echo $this->form()->closeTag(); ?>
+            <?php echo $this->form()->closeTag(); ?>
         </div>
     </div>
 <?php
