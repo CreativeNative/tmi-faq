@@ -79,7 +79,7 @@
                             <td>
                                 <div class="btn-group btn-group-sm btn-group-toggle">
                                     <a class="btn btn-primary" title="Bearbeiten" href="<?php echo $this->url(
-                                        "admin-faq/edit",["id" => $faq['id']]) ?>"><i class="fa
+                                        "faq-back/edit",["id" => $faq['id']]) ?>"><i class="fa
                                     fa-edit"></i></a>
                                     <a class="btn btn-outline-primary sortable" title="Sortieren" href="#"><i
                                                 class="fas fa-arrows-alt-v"></i></a>
@@ -133,7 +133,7 @@ $this->headLink()
     ->appendStylesheet('/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css');
 
 if (!empty($this->layout()->cacheId)) {
-    $this->inlineScript()->appendFile('/js/admin-faq-index-' . $this->layout()->cacheId . '.js');
+    $this->inlineScript()->appendFile('/js/faq-back-index-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()
         ->appendFile('/node_modules/datatables.net/js/jquery.dataTables.min.js')

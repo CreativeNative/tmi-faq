@@ -1,6 +1,4 @@
 <?php
-
-$locale = Locale::getDefault();
 $this->mainMenu()->setActiveItemId('nav-faq');
 ?>
     <div class="media-container">
@@ -9,21 +7,15 @@ $this->mainMenu()->setActiveItemId('nav-faq');
             <div class="row">
                 <div class="col-12">
                     <?php
-                    $this->pageBreadcrumbs()->setItems([
-                                                           $this->translate('Homepage') => $this->url(
-                                                               'home',
-                                                               [],
-                                                               ['force_canonical' => true]
-                                                           ),
-                                                           $this->translate('FAQ')      => $this->url(
-                                                               'faq',
-                                                               [],
-                                                               ['force_canonical' => true]
-                                                           )
-                                                       ]);
+                    $this->pageBreadcrumbs()->setItems(
+                        [
+                            $this->translate('Homepage') => $this->url('home', [], ['force_canonical' => true]),
+                            $this->translate('FAQ')      => $this->url('faq-front', [], ['force_canonical' => true])
+                        ]
+                    );
                     echo $this->pageBreadcrumbs()->render();
 
-                    $this->socialSharer()->setUrl($this->url('faq', [], ['force_canonical' => true]));
+                    $this->socialSharer()->setUrl($this->url('faq-front', [], ['force_canonical' => true]));
                     $this->socialSharer()->setTitle($this->title);
                     $this->socialSharer()->setTeaser($this->description);
                     $this->socialSharer()->setImage($this->defaultImage);
@@ -59,7 +51,7 @@ $this->mainMenu()->setActiveItemId('nav-faq');
                         );
                         echo '<li><a href="' . $faqUrl . '">' . $faq['question'] . '</a></li>';
                     }
-                     echo '</ul>';
+                    echo '</ul>';
                 }
                 ?>
             </div>

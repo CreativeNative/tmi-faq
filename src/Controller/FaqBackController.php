@@ -130,7 +130,7 @@ class FaqBackController extends AbstractActionController
         $locale   = (string) $this->params()->fromRoute('locale', 'de_DE');
 
         if ($entityId <= 0) {
-            return $this->redirect()->toRoute('admin-faq');
+            return $this->redirect()->toRoute('faq-back');
         }
 
         /** @var FaqRepository $repository */
@@ -139,7 +139,7 @@ class FaqBackController extends AbstractActionController
         $entity = $repository->findByIdForUpdate($entityId);
 
         if ($entity === null) {
-            return $this->redirect()->toRoute('admin-faq');
+            return $this->redirect()->toRoute('faq-back');
         }
 
         $entity->setTranslatableLocale($locale);
@@ -194,7 +194,6 @@ class FaqBackController extends AbstractActionController
 
     /**
      * @throws NonUniqueResultException
-     *
      * @return array{question: string, urlDe: string, urlEn: string, urlIt: string}
      */
     private function getNameAndLinks(FaqEntity $guide, FaqRepository $repository): array

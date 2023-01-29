@@ -26,15 +26,15 @@ $questionUrl = $this->url(
 
                     $this->pageBreadcrumbs()->setItems(
                         [
-                            $this->translate('Homepage') => $this->url('home'),
-                            $this->translate('FAQ')      => $this->url('faq'),
+                            $this->translate('Homepage') => $this->url('home', [], ['force_canonical' => true]),
+                            $this->translate('FAQ')      => $this->url('faq-front', [], ['force_canonical' => true]),
                             $translatedCategoryName      => $categoryUrl,
                             $question['question']        => $questionUrl,
                         ]
                     );
                     echo $this->pageBreadcrumbs()->render();
 
-                    $this->socialSharer()->setUrl($this->url('faq', [], ['force_canonical' => true]));
+                    $this->socialSharer()->setUrl($this->url('faq-front', [], ['force_canonical' => true]));
                     $this->socialSharer()->setTitle($this->title);
                     $this->socialSharer()->setTeaser($this->teaser);
                     $this->socialSharer()->setImage($this->defaultImage);

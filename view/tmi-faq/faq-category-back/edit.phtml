@@ -222,7 +222,7 @@ if ($entity->getSlug() !== null) {
 <?php
 echo $this->form()->closeTag();
 if (!empty($this->layout()->cacheId)) {
-    $this->inlineScript()->appendFile('/js/admin-faq-category-edit-' . $this->layout()->cacheId . '.js');
+    $this->inlineScript()->appendFile('/js/faq-back-category-edit-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()
         ->appendFile('/resources/admin/js/ckeditor_extended/build/ckeditor.js')
