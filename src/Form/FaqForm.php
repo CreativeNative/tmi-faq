@@ -175,7 +175,7 @@ class FaqForm extends Form
                         'name'    => Validator\StringLength::class,
                         'options' => [
                             'min' => 3,
-                            'max' => 150,
+                            'max' => 70,
                         ],
                     ],
                 ],
