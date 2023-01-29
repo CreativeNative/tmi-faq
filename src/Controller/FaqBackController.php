@@ -194,6 +194,8 @@ class FaqBackController extends AbstractActionController
 
     /**
      * @throws NonUniqueResultException
+     *
+     * @return array{question: string, urlDe: string, urlEn: string, urlIt: string}
      */
     private function getNameAndLinks(FaqEntity $guide, FaqRepository $repository): array
     {
