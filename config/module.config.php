@@ -10,9 +10,9 @@ use TmiFaq\Controller\FaqCategoryBackController;
 use TmiFaq\Controller\FaqFrontController;
 
 return [
-    'doctrine' => [
-        'driver'                   => [
-            'tmi_faq'       => [
+    'doctrine'      => [
+        'driver' => [
+            'tmi_faq'     => [
                 'class' => AnnotationDriver::class,
                 'cache' => 'apcu_tmi',
                 'paths' => [
@@ -21,23 +21,23 @@ return [
             ],
             'orm_default' => [
                 'drivers' => [
-                    'TmiFaq\Entity'       => 'tmi_faq',
+                    'TmiFaq\Entity' => 'tmi_faq',
                 ]
             ]
         ]
     ],
-    'controllers' => [
+    'controllers'   => [
         'factories' => [
-            Controller\FaqFrontController::class        => Controller\Factory\FaqFrontControllerFactory::class,
-            Controller\FaqBackController::class         => Controller\Factory\FaqBackControllerFactory::class,
-            Controller\FaqCategoryBackController::class => Controller\Factory\FaqCategoryBackControllerFactory::class,
+            FaqFrontController::class        => Controller\Factory\FaqFrontControllerFactory::class,
+            FaqBackController::class         => Controller\Factory\FaqBackControllerFactory::class,
+            FaqCategoryBackController::class => Controller\Factory\FaqCategoryBackControllerFactory::class,
         ],
     ],
-    'router'          => [
+    'router'        => [
         'routes' => [
-            'faq-front'           => [
-                'type'    => Segment::class,
-                'options' => [
+            'faq-front' => [
+                'type'          => Segment::class,
+                'options'       => [
                     'route'    => '/{url-faq}',
                     'defaults' => [
                         'controller' => FaqFrontController::class,
@@ -58,8 +58,8 @@ return [
                         'may_terminate' => true,
                         'child_routes'  => [
                             'question' => [
-                                'type'          => Segment::class,
-                                'options'       => [
+                                'type'    => Segment::class,
+                                'options' => [
                                     'route'    => '/:slug',
                                     'defaults' => [
                                         'controller' => FaqFrontController::class,
@@ -71,7 +71,7 @@ return [
                     ],
                 ],
             ],
-            'faq-back'            => [
+            'faq-back'  => [
                 'type'          => Literal::class,
                 'options'       => [
                     'route'    => '/faq',
@@ -92,7 +92,7 @@ return [
                             ],
                         ],
                     ],
-                    'edit'   => [
+                    'edit'     => [
                         'type'    => Segment::class,
                         'options' => [
                             'route'       => '/edit[/:id][/:locale]',
@@ -147,7 +147,13 @@ return [
             ],
         ],
     ],
-    'view_manager' => [
+    'form_elements' => [
+        'factories' => [
+            Form\FaqCategoryForm::class => Form\Factory\FaqCategoryFormFactory::class,
+            Form\FaqForm::class         => Form\Factory\FaqFormFactory::class,
+        ],
+    ],
+    'view_manager'  => [
         'template_map' => include __DIR__ . '/template_map.config.php',
     ]
 ];
