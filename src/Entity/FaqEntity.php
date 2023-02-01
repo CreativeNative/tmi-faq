@@ -69,23 +69,37 @@ class FaqEntity
      */
     private Collection $categories;
 
+    /** @ORM\Column(type="integer") */
+    private int $position = 0;
+
+    /**
+     * @ORM\Column(type="string", length=70)
+     *
+     * @Gedmo\Translatable
+     */
+    private string $title = '';
+
     /**
      * @ORM\Column(type="string", length=70, unique=true)
      *
      * @Gedmo\Translatable
+     * @Gedmo\Slug(fields={"title"})
      */
-    private ?string $question = null;
+    private string $slug = '';
 
     /**
-     * @ORM\Column(type="string", length=150, unique=true)
+     * @ORM\Column(type="string", length=160)
      *
      * @Gedmo\Translatable
-     * @Gedmo\Slug(fields={"question"})
      */
-    private ?string $slug = null;
+    private string $description = '';
 
-    /** @ORM\Column(type="integer") */
-    private int $position = 0;
+    /**
+     * @ORM\Column(type="string", length=70)
+     *
+     * @Gedmo\Translatable
+     */
+    private string $question = '';
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -186,26 +200,6 @@ class FaqEntity
         $category->removeFaq($this);
     }
 
-    public function getQuestion(): ?string
-    {
-        return $this->question;
-    }
-
-    public function setQuestion(string $question): void
-    {
-        $this->question = $question;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
     public function getPosition(): int
     {
         return $this->position;
@@ -216,12 +210,50 @@ class FaqEntity
         $this->position = $position;
     }
 
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+    public function getQuestion(): string
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(string $question): void
+    {
+        $this->question = $question;
+    }
     public function getAnswer(): ?string
     {
         return $this->answer;
     }
 
-    public function setAnswer(string $answer): void
+    public function setAnswer(?string $answer): void
     {
         $this->answer = $answer;
     }

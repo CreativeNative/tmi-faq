@@ -81,25 +81,25 @@ class FaqCategoryEntity
     private ?TranslationEntity $slug = null;
 
     /**
-     * @ORM\Column(type="string", length=70, nullable=true)
+     * @ORM\Column(type="string", length=70)
      *
      * @Gedmo\Translatable
      */
-    private ?string $title = null;
+    private string $title = '';
 
     /**
-     * @ORM\Column(type="string", length=160, nullable=true)
+     * @ORM\Column(type="string", length=160)
      *
      * @Gedmo\Translatable
      */
-    private ?string $description = null;
+    private string $description = '';
 
     /**
-     * @ORM\Column(type="string", length=70, nullable=true)
+     * @ORM\Column(type="string", length=70)
      *
      * @Gedmo\Translatable
      */
-    private ?string $headline = null;
+    private string $headline = '';
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -244,7 +244,7 @@ class FaqCategoryEntity
         $this->slug = $translation;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -254,7 +254,7 @@ class FaqCategoryEntity
         $this->title = $title;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -264,7 +264,7 @@ class FaqCategoryEntity
         $this->description = $description;
     }
 
-    public function getHeadline(): ?string
+    public function getHeadline(): string
     {
         return $this->headline;
     }
