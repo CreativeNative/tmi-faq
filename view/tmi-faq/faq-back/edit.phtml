@@ -55,8 +55,7 @@ echo $this->form()->openTag($form);
                                 'locale' => $this->locale
                             ]
                         ),
-                        $this->translate('Question')
-                            => $this->url('faq-back/edit',
+                        $this->translate('Question') => $this->url('faq-back/edit',
                             [
                                 'id'     => $id,
                                 'locale' => $this->locale
@@ -94,14 +93,12 @@ echo $this->form()->openTag($form);
                 echo $this->formLabel($form->get('category'));
                 echo $this->formSelect($form->get('category'));
                 echo $this->formElementErrors($form->get('category'), ['class' => 'text-danger m-0']); ?>
-                ?>
             </div>
             <div class="col-md-6">
                 <?php
                 echo $this->formLabel($form->get('categories'));
                 echo $this->formSelect($form->get('categories'));
                 echo $this->formElementErrors($form->get('categories'), ['class' => 'text-danger m-0']); ?>
-                ?>
             </div>
             <div class="col-12">
                 <?php echo $this->formLabel($form->get('question')); ?>
@@ -138,7 +135,6 @@ echo $this->form()->openTag($form);
                 echo $this->formLabel($form->get('answer'));
                 echo $this->formTextarea($form->get('answer'));
                 echo $this->formElementErrors($form->get('answer'), ['class' => 'text-danger m-0']); ?>
-                ?>
             </div>
             <div class="d-grid mt-3">
                 <?php
@@ -153,12 +149,12 @@ echo $this->form()->openTag($form);
 <?php
 echo $this->form()->closeTag();
 if (!empty($this->layout()->cacheId)) {
-    $this->inlineScript()->appendFile('/js/faq-back-category-edit-' . $this->layout()->cacheId . '.js');
+    $this->inlineScript()->appendFile('/js/faq-edit-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()
         ->appendFile('/resources/admin/js/ckeditor_extended/build/ckeditor.js')
         ->appendFile('/resources/admin/js/ckeditor_extended/build/translations/de.js')
         ->appendFile('/resources/admin/js/ckeditor_extended/build/translations/it.js')
-        ->appendFile('/resources/admin/js/faq-category-edit.js');
+        ->appendFile('/resources/admin/js/faq-edit.js');
 }
 ?>

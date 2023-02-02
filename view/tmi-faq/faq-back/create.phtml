@@ -28,14 +28,12 @@ echo $this->form()->openTag($form);
                         echo $this->formLabel($form->get('category'));
                         echo $this->formSelect($form->get('category'));
                         echo $this->formElementErrors($form->get('category'), ['class' => 'text-danger m-0']); ?>
-                        ?>
                     </div>
                     <div class="col-md-6">
                         <?php
                         echo $this->formLabel($form->get('categories'));
                         echo $this->formSelect($form->get('categories'));
                         echo $this->formElementErrors($form->get('categories'), ['class' => 'text-danger m-0']); ?>
-                        ?>
                     </div>
                     <div class="col-12">
                         <?php
@@ -44,7 +42,7 @@ echo $this->form()->openTag($form);
                             <span id="questionLength" class="input-group-text"></span>
                             <?php
                             echo $this->formElement($form->get('question')); ?>
-                            <span class="input-group-text">3-150</span>
+                            <span class="input-group-text">3-70</span>
                         </div>
                         <?php
                         echo $this->formElementErrors($form->get('question'), ['class' => 'text-danger m-0']); ?>
