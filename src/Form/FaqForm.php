@@ -108,11 +108,11 @@ class FaqForm extends Form
                 'type'       => Element\Text::class,
                 'name'       => 'title',
                 'options'    => [
-                    'label'            => 'Title',
+                    'label' => 'Title',
                 ],
                 'attributes' => [
-                    'id'       => 'title',
-                    'class'    => 'form-control',
+                    'id'    => 'title',
+                    'class' => 'form-control',
                 ],
             ]
         );

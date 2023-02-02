@@ -27,7 +27,8 @@ class FaqRepository extends TranslationEntityRepository
 
     /**
      * Query for faq question view
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @throws NonUniqueResultException
      */
     public function findBySlug(string $slug): ?array
     {
