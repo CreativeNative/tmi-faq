@@ -187,19 +187,6 @@ class FaqCategoryForm extends Form
 
         $inputFilter->add(
             [
-                'name'       => 'id',
-                'required'   => true,
-                'filters'    => [
-                    ['name' => Filter\ToInt::class],
-                ],
-                'validators' => [
-                    ['name' => Validator\Digits::class],
-                ],
-            ]
-        );
-
-        $inputFilter->add(
-            [
                 'name'       => 'name',
                 'required'   => true,
                 'filters'    => [
