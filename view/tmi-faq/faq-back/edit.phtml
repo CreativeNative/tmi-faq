@@ -1,6 +1,6 @@
 <?php
 $this->mainMenu()->setActiveItemId('faq');
-$this->mainMenu()->setActiveItemId('faq-question');
+$this->mainMenu()->setActiveItemId('faq-questions');
 /** @var TmiFaq\Entity\FaqEntity $entity */
 $entity = $this->entity;
 $id = $entity->getId();
@@ -93,14 +93,14 @@ echo $this->form()->openTag($form);
                 <?php
                 echo $this->formLabel($form->get('category'));
                 echo $this->formSelect($form->get('category'));
-                echo $this->formElementErrors($form->get('category'));
+                echo $this->formElementErrors($form->get('category'), ['class' => 'text-danger m-0']); ?>
                 ?>
             </div>
             <div class="col-md-6">
                 <?php
                 echo $this->formLabel($form->get('categories'));
                 echo $this->formSelect($form->get('categories'));
-                echo $this->formElementErrors($form->get('categories'));
+                echo $this->formElementErrors($form->get('categories'), ['class' => 'text-danger m-0']); ?>
                 ?>
             </div>
             <div class="col-12">
@@ -109,34 +109,56 @@ echo $this->form()->openTag($form);
                     <span id="questionLength" class="input-group-text"></span>
                     <?php
                     echo $this->formElement($form->get('question')); ?>
-                    <span class="input-group-text">3-150</span>
+                    <span class="input-group-text">3-70</span>
                 </div>
-                <?php echo $this->formElementErrors($form->get('question')); ?>
+                <?php echo $this->formElementErrors($form->get('question'), ['class' => 'text-danger m-0']); ?>
+            </div>
+            <div class="col-12">
+                <?php echo $this->formLabel($form->get('title')); ?>
+                <div class="input-group">
+                    <span id="titleLength" class="input-group-text"></span>
+                    <?php
+                    echo $this->formElement($form->get('title')); ?>
+                    <span class="input-group-text">3-70</span>
+                </div>
+                <?php echo $this->formElementErrors($form->get('title'), ['class' => 'text-danger m-0']); ?>
+            </div>
+            <div class="col-12">
+                <?php echo $this->formLabel($form->get('description')); ?>
+                <div class="input-group">
+                    <span id="descriptionLength" class="input-group-text"></span>
+                    <?php
+                    echo $this->formElement($form->get('description')); ?>
+                    <span class="input-group-text">130-160</span>
+                </div>
+                <?php echo $this->formElementErrors($form->get('description'), ['class' => 'text-danger m-0']); ?>
             </div>
             <div class="col-12">
                 <?php
                 echo $this->formLabel($form->get('answer'));
                 echo $this->formTextarea($form->get('answer'));
-                echo $this->formElementErrors($form->get('answer'));
+                echo $this->formElementErrors($form->get('answer'), ['class' => 'text-danger m-0']); ?>
                 ?>
             </div>
             <div class="d-grid mt-3">
                 <?php
                 echo $this->formElement($form->get('csrf'));
+                echo $this->formElementErrors($form->get('csrf'), ['class' => 'text-danger m-0']);
                 echo $this->formElement($form->get('form-submit'));
+                echo $this->formElementErrors($form->get('form-submit'), ['class' => 'text-danger m-0']);
                 ?>
             </div>
-            <?php echo $this->form()->closeTag(); ?>
         </div>
     </div>
 <?php
+echo $this->form()->closeTag();
 if (!empty($this->layout()->cacheId)) {
-    $this->inlineScript()->appendFile('/js/faq-edit-' . $this->layout()->cacheId . '.js');
+    $this->inlineScript()->appendFile('/js/faq-back-category-edit-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()
-        ->appendFile('/resources/admin/js/ckeditor/build/ckeditor.js')
-        ->appendFile('/resources/admin/js/ckeditor/build/translations/de.js')
-        ->appendFile('/resources/admin/js/ckeditor/build/translations/it.js')
-        ->appendFile('/resources/admin/js/faq-edit.js');
+        ->appendFile('/resources/admin/js/ckeditor_extended/build/ckeditor.js')
+        ->appendFile('/resources/admin/js/ckeditor_extended/build/translations/de.js')
+        ->appendFile('/resources/admin/js/ckeditor_extended/build/translations/it.js')
+        ->appendFile('/resources/admin/js/faq-category-edit.js');
 }
 ?>

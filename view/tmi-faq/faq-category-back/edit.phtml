@@ -1,6 +1,6 @@
 <?php
 $this->mainMenu()->setActiveItemId('faq');
-$this->mainMenu()->setActiveItemId('faq-category');
+$this->mainMenu()->setActiveItemId('faq-categories');
 /** @var TmiFaq\Entity\FaqCategoryEntity $entity */
 $entity = $this->entity;
 $id = $entity->getId();
@@ -131,14 +131,14 @@ if ($entity->getSlug() !== null) {
             <?php
             echo $this->formLabel($form->get('name'));
             echo $this->formSelect($form->get('name'));
-            echo $this->formElementErrors($form->get('name'));
+            echo $this->formElementErrors($form->get('name'), ['class' => 'text-danger m-0']); ?>
             ?>
         </div>
         <div class="col-12 col-md-6">
             <?php
             echo $this->formLabel($form->get('slug'));
             echo $this->formSelect($form->get('slug'));
-            echo $this->formElementErrors($form->get('slug'));
+            echo $this->formElementErrors($form->get('slug'), ['class' => 'text-danger m-0']); ?>
             ?>
         </div>
         <div class="col-12">
@@ -155,11 +155,7 @@ if ($entity->getSlug() !== null) {
                         <span class="input-group-text">40-70</span>
                     </div>
                 </div>
-                <?php
-                echo $this->formElementErrors(
-                    $form->get('title'),
-                    ['class' => 'text-danger m-0']
-                ); ?>
+                <?php echo $this->formElementErrors($form->get('title'), ['class' => 'text-danger m-0']); ?>
             </div>
         </div>
         <div class="col-12">
@@ -176,11 +172,7 @@ if ($entity->getSlug() !== null) {
                         <span class="input-group-text">130-160</span>
                     </div>
                 </div>
-                <?php
-                echo $this->formElementErrors(
-                    $form->get('description'),
-                    ['class' => 'text-danger m-0']
-                ); ?>
+                <?php echo $this->formElementErrors($form->get('description'), ['class' => 'text-danger m-0']); ?>
             </div>
         </div>
         <div class="col-12">
@@ -198,7 +190,7 @@ if ($entity->getSlug() !== null) {
                     </div>
                 </div>
                 <?php
-                echo $this->formElementErrors($form->get('title')); ?>
+                echo $this->formElementErrors($form->get('title'), ['class' => 'text-danger m-0']); ?>
             </div>
         </div>
         <div class="col-12">

@@ -1,23 +1,16 @@
 <?php
 $this->mainMenu()->setActiveItemId('faq');
+$this->mainMenu()->setActiveItemId('faq-questions');
 $form = $this->form;
 $form->prepare();
-$form->setAttribute('action', $this->url('faq-back/create')
-);
+$form->setAttribute('action', $this->url('faq-back/create'));
+echo $this->form()->openTag($form);
 ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h1><?php
-                    echo $this->translate('FAQ') . ' - ' . $this->translate('Create question'); ?></h1>
+                <h1><?php echo $this->translate('FAQ') . ' - ' . $this->translate('Create question'); ?></h1>
                 <?php
-                $this->pageBreadcrumbs()->setItems([
-
-                                                   ]);
-                echo $this->pageBreadcrumbs()->render();
-
-                echo $this->form()->openTag($form);
-
                 if (!empty($this->message) && is_array($this->message)) {
                     echo '<div class="alert ' . $this->message["class"] . ' " role="alert">';
                     echo $this->translate($this->message['message']);
@@ -34,14 +27,14 @@ $form->setAttribute('action', $this->url('faq-back/create')
                         <?php
                         echo $this->formLabel($form->get('category'));
                         echo $this->formSelect($form->get('category'));
-                        echo $this->formElementErrors($form->get('category'));
+                        echo $this->formElementErrors($form->get('category'), ['class' => 'text-danger m-0']); ?>
                         ?>
                     </div>
                     <div class="col-md-6">
                         <?php
                         echo $this->formLabel($form->get('categories'));
                         echo $this->formSelect($form->get('categories'));
-                        echo $this->formElementErrors($form->get('categories'));
+                        echo $this->formElementErrors($form->get('categories'), ['class' => 'text-danger m-0']); ?>
                         ?>
                     </div>
                     <div class="col-12">
@@ -54,28 +47,21 @@ $form->setAttribute('action', $this->url('faq-back/create')
                             <span class="input-group-text">3-150</span>
                         </div>
                         <?php
-                        echo $this->formElementErrors($form->get('question')); ?>
+                        echo $this->formElementErrors($form->get('question'), ['class' => 'text-danger m-0']); ?>
                     </div>
                 </div>
                 <div class="d-grid mt-3">
                     <?php
                     echo $this->formElement($form->get('csrf'));
+                    echo $this->formElementErrors($form->get('csrf'), ['class' => 'text-danger m-0']);
                     echo $this->formElement($form->get('form-submit'));
+                    echo $this->formElementErrors($form->get('form-submit'), ['class' => 'text-danger m-0']);
                     ?>
                 </div>
-                <?php
-                echo $this->form()->closeTag(); ?>
             </div>
         </div>
     </div>
 <?php
-if (!empty($this->layout()->cacheId)) {
-    $this->inlineScript()->appendFile('/js/faq-create-' . $this->layout()->cacheId . '.js');
-} else {
-    $this->inlineScript()
-        ->appendFile('/resources/admin/js/ckeditor/build/ckeditor.js')
-        ->appendFile('/resources/admin/js/ckeditor/build/translations/de.js')
-        ->appendFile('/resources/admin/js/ckeditor/build/translations/it.js')
-        ->appendFile('/resources/admin/js/faq-create.js');
-}
+echo $this->form()->closeTag();
+$this->inlineScript()->appendFile('/resources/admin/js/faq-create.js');
 ?>
