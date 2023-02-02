@@ -81,25 +81,25 @@ class FaqCategoryEntity
     private ?TranslationEntity $slug = null;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=70, nullable=true)
      *
      * @Gedmo\Translatable
      */
-    private string $title = '';
+    private ?string $title = null;
 
     /**
-     * @ORM\Column(type="string", length=160)
+     * @ORM\Column(type="string", length=160, nullable=true)
      *
      * @Gedmo\Translatable
      */
-    private string $description = '';
+    private ?string $description = null;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=70, nullable=true)
      *
      * @Gedmo\Translatable
      */
-    private string $headline = '';
+    private ?string $headline = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -244,32 +244,32 @@ class FaqCategoryEntity
         $this->slug = $translation;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    public function getHeadline(): string
+    public function getHeadline(): ?string
     {
         return $this->headline;
     }
 
-    public function setHeadline(string $headline): void
+    public function setHeadline(?string $headline): void
     {
         $this->headline = $headline;
     }
@@ -279,7 +279,7 @@ class FaqCategoryEntity
         return $this->teaser;
     }
 
-    public function setTeaser(string $teaser): void
+    public function setTeaser(?string $teaser): void
     {
         $this->teaser = $teaser;
     }

@@ -128,12 +128,12 @@ $form->setAttribute('action', $this->url(
     </div>
 <?php
 if (!empty($this->layout()->cacheId)) {
-    $this->inlineScript()->appendFile('/js/admin-realestate-translation-' . $this->layout()->cacheId . '.js');
+    $this->inlineScript()->appendFile('/js/faq-translation-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()
         ->appendFile('/resources/admin/js/ckeditor/build/ckeditor.js')
         ->appendFile('/resources/admin/js/ckeditor/build/translations/de.js')
         ->appendFile('/resources/admin/js/ckeditor/build/translations/it.js')
-        ->appendFile('/resources/admin/js/realestate-translation.js');
+        ->appendFile('/resources/admin/js/faq-translation.js');
 }
 ?>

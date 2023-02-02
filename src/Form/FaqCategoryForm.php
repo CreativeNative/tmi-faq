@@ -102,18 +102,6 @@ class FaqCategoryForm extends Form
 
         $this->add(
             [
-                'type'    => Element\Csrf::class,
-                'name'    => 'csrf',
-                'options' => [
-                    'csrf_options' => [
-                        'timeout' => 600,
-                    ],
-                ],
-            ]
-        );
-
-        $this->add(
-            [
                 'type'       => Element\Text::class,
                 'name'       => 'title',
                 'options'    => [
@@ -164,6 +152,18 @@ class FaqCategoryForm extends Form
                 'attributes' => [
                     'id'    => 'teaser',
                     'class' => 'form-control ckeditor',
+                ],
+            ]
+        );
+
+        $this->add(
+            [
+                'type'    => Element\Csrf::class,
+                'name'    => 'csrf',
+                'options' => [
+                    'csrf_options' => [
+                        'timeout' => 600,
+                    ],
                 ],
             ]
         );
@@ -229,6 +229,7 @@ class FaqCategoryForm extends Form
                 'name'       => 'title',
                 'required'   => false,
                 'filters'    => [
+                    ['name' => Filter\ToNull::class],
                     ['name' => Filter\StringTrim::class],
                     ['name' => Filter\StripTags::class],
                     ['name' => Filter\StripNewlines::class],
@@ -250,6 +251,7 @@ class FaqCategoryForm extends Form
                 'name'       => 'description',
                 'required'   => false,
                 'filters'    => [
+                    ['name' => Filter\ToNull::class],
                     ['name' => Filter\StringTrim::class],
                     ['name' => Filter\StripTags::class],
                     ['name' => Filter\StripNewlines::class],
@@ -271,6 +273,7 @@ class FaqCategoryForm extends Form
                 'name'       => 'headline',
                 'required'   => false,
                 'filters'    => [
+                    ['name' => Filter\ToNull::class],
                     ['name' => Filter\StringTrim::class],
                     ['name' => Filter\StripTags::class],
                     ['name' => Filter\StripNewlines::class],
@@ -292,6 +295,7 @@ class FaqCategoryForm extends Form
                 'name'     => 'teaser',
                 'required' => false,
                 'filters'  => [
+                    ['name' => Filter\ToNull::class],
                     ['name' => Filter\StringTrim::class],
                 ],
             ]

@@ -73,33 +73,33 @@ class FaqEntity
     private int $position = 0;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=70, nullable=true)
      *
      * @Gedmo\Translatable
      */
-    private string $title = '';
+    private ?string $title = null;
 
     /**
-     * @ORM\Column(type="string", length=70, unique=true)
+     * @ORM\Column(type="string", length=160, nullable=true)
      *
      * @Gedmo\Translatable
-     * @Gedmo\Slug(fields={"title"})
      */
-    private string $slug = '';
+    private ?string $description = null;
 
     /**
-     * @ORM\Column(type="string", length=160)
+     * @ORM\Column(type="string", length=70, nullable=true)
      *
      * @Gedmo\Translatable
      */
-    private string $description = '';
+    private ?string $question = null;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=70, unique=true, nullable=true)
      *
      * @Gedmo\Translatable
+     * @Gedmo\Slug(fields={"question"})
      */
-    private string $question = '';
+    private ?string $slug = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -239,6 +239,7 @@ class FaqEntity
     {
         $this->description = $description;
     }
+
     public function getQuestion(): string
     {
         return $this->question;
@@ -248,6 +249,7 @@ class FaqEntity
     {
         $this->question = $question;
     }
+
     public function getAnswer(): ?string
     {
         return $this->answer;

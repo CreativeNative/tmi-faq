@@ -12,9 +12,6 @@ use TmiTranslation\Repository\TranslationEntityRepository;
 
 use function locale_get_default;
 
-/**
- * @extends TranslationEntityRepository<FaqCategoryRepository>
- */
 class FaqCategoryRepository extends TranslationEntityRepository
 {
     /**

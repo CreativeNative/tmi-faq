@@ -14,9 +14,6 @@ use TmiTranslation\Repository\TranslationEntityRepository;
 
 use function locale_get_default;
 
-/**
- * @extends TranslationEntityRepository<FaqRepository>
- */
 class FaqRepository extends TranslationEntityRepository
 {
     private string $locale;
@@ -30,6 +27,7 @@ class FaqRepository extends TranslationEntityRepository
 
     /**
      * Query for faq question view
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findBySlug(string $slug): ?array
     {

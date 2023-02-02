@@ -56,13 +56,6 @@ $form->setAttribute('action', $this->url('faq-back/create')
                         <?php
                         echo $this->formElementErrors($form->get('question')); ?>
                     </div>
-                    <div class="col-12">
-                        <?php
-                        echo $this->formLabel($form->get('answer'));
-                        echo $this->formTextarea($form->get('answer'));
-                        echo $this->formElementErrors($form->get('answer'));
-                        ?>
-                    </div>
                 </div>
                 <div class="d-grid mt-3">
                     <?php

@@ -106,6 +106,34 @@ class FaqForm extends Form
         $this->add(
             [
                 'type'       => Element\Text::class,
+                'name'       => 'title',
+                'options'    => [
+                    'label'            => 'Title',
+                ],
+                'attributes' => [
+                    'id'       => 'title',
+                    'class'    => 'form-control',
+                ],
+            ]
+        );
+
+        $this->add(
+            [
+                'type'       => Element\Text::class,
+                'name'       => 'description',
+                'options'    => [
+                    'label' => 'Description',
+                ],
+                'attributes' => [
+                    'id'    => 'description',
+                    'class' => 'form-control',
+                ],
+            ]
+        );
+
+        $this->add(
+            [
+                'type'       => Element\Text::class,
                 'name'       => 'question',
                 'options'    => [
                     'label'            => 'Question',
@@ -121,7 +149,7 @@ class FaqForm extends Form
 
         $this->add(
             [
-                'type'       => Element\Text::class,
+                'type'       => Element\Textarea::class,
                 'name'       => 'answer',
                 'options'    => [
                     'label' => 'Answer',
@@ -162,6 +190,85 @@ class FaqForm extends Form
 
         $inputFilter->add(
             [
+                'name'       => 'id',
+                'required'   => true,
+                'filters'    => [
+                    ['name' => Filter\ToInt::class],
+                ],
+                'validators' => [
+                    ['name' => Validator\Digits::class],
+                ],
+            ]
+        );
+
+        $inputFilter->add(
+            [
+                'name'       => 'category',
+                'required'   => true,
+                'filters'    => [
+                    ['name' => Filter\ToInt::class],
+                ],
+                'validators' => [
+                    ['name' => Validator\Digits::class],
+                ],
+            ]
+        );
+
+        $inputFilter->add(
+            [
+                'name'     => 'categories',
+                'required' => false,
+            ]
+        );
+
+        $inputFilter->add(
+            [
+                'name'       => 'title',
+                'required'   => false,
+                'filters'    => [
+                    ['name' => Filter\ToNull::class],
+                    ['name' => Filter\StringTrim::class],
+                    ['name' => Filter\StripTags::class],
+                    ['name' => Filter\StripNewlines::class],
+                ],
+                'validators' => [
+                    ['name' => Validator\NotEmpty::class],
+                    [
+                        'name'    => Validator\StringLength::class,
+                        'options' => [
+                            'min' => 3,
+                            'max' => 70,
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        $inputFilter->add(
+            [
+                'name'       => 'description',
+                'required'   => false,
+                'filters'    => [
+                    ['name' => Filter\ToNull::class],
+                    ['name' => Filter\StringTrim::class],
+                    ['name' => Filter\StripTags::class],
+                    ['name' => Filter\StripNewlines::class],
+                ],
+                'validators' => [
+                    ['name' => Validator\NotEmpty::class],
+                    [
+                        'name'    => Validator\StringLength::class,
+                        'options' => [
+                            'min' => 130,
+                            'max' => 160,
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        $inputFilter->add(
+            [
                 'name'       => 'question',
                 'required'   => true,
                 'filters'    => [
@@ -185,8 +292,9 @@ class FaqForm extends Form
         $inputFilter->add(
             [
                 'name'     => 'answer',
-                'required' => true,
+                'required' => false,
                 'filters'  => [
+                    ['name' => Filter\ToNull::class],
                     ['name' => Filter\StringTrim::class],
                 ],
             ]

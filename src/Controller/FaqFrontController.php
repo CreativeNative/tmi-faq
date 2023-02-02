@@ -30,8 +30,8 @@ class FaqFrontController extends AbstractActionController
         PhpRenderer $renderer
     ) {
         $this->entityManager = $entityManager;
-        $this->translator = $translator;
-        $this->renderer = $renderer;
+        $this->translator    = $translator;
+        $this->renderer      = $renderer;
     }
 
     /**
@@ -45,10 +45,10 @@ class FaqFrontController extends AbstractActionController
         /** @var array $categories */
         $categories = $repository->getCategoriesWithFaqs();
 
-        $title = $this->translator->translate('terra-mia-title');
+        $title       = $this->translator->translate('terra-mia-title');
         $description = $this->translator->translate('terra-mia-description');
 
-        $domain = $this->translator->translate('terra-mia-domain');
+        $domain   = $this->translator->translate('terra-mia-domain');
         $domainDe = $this->translator->translate('terra-mia-domain', 'default', 'de_DE');
         $domainEn = $this->translator->translate('terra-mia-domain', 'default', 'en_US');
         $domainIt = $this->translator->translate('terra-mia-domain', 'default', 'it_IT');
@@ -110,10 +110,10 @@ class FaqFrontController extends AbstractActionController
             return new ViewModel();
         }
 
-        $title = $categoryEntity['title'];
+        $title       = $categoryEntity['title'];
         $description = $categoryEntity['description'];
 
-        $domain = $this->translator->translate('terra-mia-domain');
+        $domain   = $this->translator->translate('terra-mia-domain');
         $domainDe = $this->translator->translate('terra-mia-domain', 'default', 'de_DE');
         $domainEn = $this->translator->translate('terra-mia-domain', 'default', 'en_US');
         $domainIt = $this->translator->translate('terra-mia-domain', 'default', 'it_IT');
@@ -154,7 +154,7 @@ class FaqFrontController extends AbstractActionController
     public function questionAction(): ViewModel
     {
         $category = $this->params()->fromRoute('category');
-        $slug = $this->params()->fromRoute('slug');
+        $slug     = $this->params()->fromRoute('slug');
 
         if (empty($category)) {
             /* @phpstan-ignore-next-line */
@@ -180,7 +180,7 @@ class FaqFrontController extends AbstractActionController
 
         $result = $this->getNameAndLinks($questionEntity, $repository);
 
-        $title = $questionEntity['title'];
+        $title       = $questionEntity['title'];
         $description = $questionEntity['description'];
 
         $domain = $this->translator->translate('terra-mia-domain');
@@ -227,67 +227,67 @@ class FaqFrontController extends AbstractActionController
             }
         }
 
-        $germanNameAndSlug = $repository->getGermanNameAndSlugById($faq['id']);
+        $germanNameAndSlug                 = $repository->getGermanNameAndSlugById($faq['id']);
         $translations['de_DE']['question'] = $germanNameAndSlug['question'];
-        $translations['de_DE']['slug'] = $germanNameAndSlug['slug'];
+        $translations['de_DE']['slug']     = $germanNameAndSlug['slug'];
 
-        $domain = $this->translator->translate('terra-mia-domain');
+        $domain   = $this->translator->translate('terra-mia-domain');
         $domainDe = $this->translator->translate('terra-mia-domain', 'default', 'de_DE');
         $domainEn = $this->translator->translate('terra-mia-domain', 'default', 'en_US');
         $domainIt = $this->translator->translate('terra-mia-domain', 'default', 'it_IT');
 
         $canonicalUrl = $domain . $this->url()->fromRoute(
-                'faq-front/category/question',
-                [
-                    'category' => $this->translator->translate($faq['category']['slug']['translationKey']),
-                    'slug'     => $faq['slug'],
-                ]
-            );
+            'faq-front/category/question',
+            [
+                'category' => $this->translator->translate($faq['category']['slug']['translationKey']),
+                'slug'     => $faq['slug'],
+            ]
+        );
 
         $urlDe = '';
-        if (!empty($translations['de_DE']['slug'])) {
+        if (! empty($translations['de_DE']['slug'])) {
             $urlDe = $domainDe . $this->url()->fromRoute(
-                    'faq-front/category/question',
-                    [
-                        'category' => $this->translator->translate(
-                            $faq['category']['slug']['translationKey'],
-                            'default',
-                            'de_DE'
-                        ),
-                        'slug'     => $translations['de_DE']['slug'],
-                    ],
-                    ['locale' => 'de_DE']
-                );
+                'faq-front/category/question',
+                [
+                    'category' => $this->translator->translate(
+                        $faq['category']['slug']['translationKey'],
+                        'default',
+                        'de_DE'
+                    ),
+                    'slug'     => $translations['de_DE']['slug'],
+                ],
+                ['locale' => 'de_DE']
+            );
         }
         $urlEn = '';
-        if (!empty($translations['en_US']['slug'])) {
+        if (! empty($translations['en_US']['slug'])) {
             $urlEn = $domainEn . $this->url()->fromRoute(
-                    'faq-front/category/question',
-                    [
-                        'category' => $this->translator->translate(
-                            $faq['category']['slug']['translationKey'],
-                            'default',
-                            'en_US'
-                        ),
-                        'slug'     => $translations['en_US']['slug'],
-                    ],
-                    ['locale' => 'en_US']
-                );
+                'faq-front/category/question',
+                [
+                    'category' => $this->translator->translate(
+                        $faq['category']['slug']['translationKey'],
+                        'default',
+                        'en_US'
+                    ),
+                    'slug'     => $translations['en_US']['slug'],
+                ],
+                ['locale' => 'en_US']
+            );
         }
         $urlIt = '';
-        if (!empty($translations['it_IT']['slug'])) {
+        if (! empty($translations['it_IT']['slug'])) {
             $urlIt = $domainIt . $this->url()->fromRoute(
-                    'faq-front/category/question',
-                    [
-                        'category' => $this->translator->translate(
-                            $faq['category']['slug']['translationKey'],
-                            'default',
-                            'it_IT'
-                        ),
-                        'slug'     => $translations['it_IT']['slug'],
-                    ],
-                    ['locale' => 'it_IT']
-                );
+                'faq-front/category/question',
+                [
+                    'category' => $this->translator->translate(
+                        $faq['category']['slug']['translationKey'],
+                        'default',
+                        'it_IT'
+                    ),
+                    'slug'     => $translations['it_IT']['slug'],
+                ],
+                ['locale' => 'it_IT']
+            );
         }
         return [
             'questionDe'   => $translations['de_DE']['question'],

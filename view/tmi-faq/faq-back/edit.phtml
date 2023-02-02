@@ -131,12 +131,12 @@ echo $this->form()->openTag($form);
     </div>
 <?php
 if (!empty($this->layout()->cacheId)) {
-    $this->inlineScript()->appendFile('/js/faq-create-' . $this->layout()->cacheId . '.js');
+    $this->inlineScript()->appendFile('/js/faq-edit-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()
         ->appendFile('/resources/admin/js/ckeditor/build/ckeditor.js')
         ->appendFile('/resources/admin/js/ckeditor/build/translations/de.js')
         ->appendFile('/resources/admin/js/ckeditor/build/translations/it.js')
-        ->appendFile('/resources/admin/js/faq-create.js');
+        ->appendFile('/resources/admin/js/faq-edit.js');
 }
 ?>
