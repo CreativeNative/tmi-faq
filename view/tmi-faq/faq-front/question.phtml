@@ -35,7 +35,7 @@ $questionUrl = $this->url(
                     echo $this->pageBreadcrumbs()->render();
 
                     $this->socialSharer()->setUrl($questionUrl);
-                    $this->socialSharer()->setTitle($this->title);
+                    $this->socialSharer()->setTitle($question['question']);
                     $this->socialSharer()->setTeaser($this->description);
                     $this->socialSharer()->setImage($this->defaultImage);
                     echo $this->socialSharer()->render();

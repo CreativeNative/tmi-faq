@@ -35,46 +35,10 @@ return [
     ],
     'router'        => [
         'routes' => [
-            'faq-front' => [
-                'type'          => Segment::class,
-                'options'       => [
-                    'route'    => '/{url-faq}',
-                    'defaults' => [
-                        'controller' => FaqFrontController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-                'may_terminate' => true,
-                'child_routes'  => [
-                    'category' => [
-                        'type'          => Segment::class,
-                        'options'       => [
-                            'route'    => '/:category',
-                            'defaults' => [
-                                'controller' => FaqFrontController::class,
-                                'action'     => 'category',
-                            ],
-                        ],
-                        'may_terminate' => true,
-                        'child_routes'  => [
-                            'question' => [
-                                'type'    => Segment::class,
-                                'options' => [
-                                    'route'    => '/:slug',
-                                    'defaults' => [
-                                        'controller' => FaqFrontController::class,
-                                        'action'     => 'question',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
             'faq-back'  => [
                 'type'          => Literal::class,
                 'options'       => [
-                    'route'    => '/faq',
+                    'route'    => '/faq-index',
                     'defaults' => [
                         'controller' => FaqBackController::class,
                         'action'     => 'index',
@@ -145,6 +109,43 @@ return [
                     ],
                 ],
             ],
+            'faq-front' => [
+                'type'          => Segment::class,
+                'options'       => [
+                    'route'    => '/{url-faq}',
+                    'defaults' => [
+                        'controller' => FaqFrontController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'category' => [
+                        'type'          => Segment::class,
+                        'options'       => [
+                            'route'    => '/:category',
+                            'defaults' => [
+                                'controller' => FaqFrontController::class,
+                                'action'     => 'category',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                        'child_routes'  => [
+                            'question' => [
+                                'type'    => Segment::class,
+                                'options' => [
+                                    'route'    => '/:slug',
+                                    'defaults' => [
+                                        'controller' => FaqFrontController::class,
+                                        'action'     => 'question',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
         ],
     ],
     'form_elements' => [
