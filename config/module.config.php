@@ -14,7 +14,7 @@ return [
         'driver' => [
             'tmi_faq'     => [
                 'class' => AnnotationDriver::class,
-                'cache' => 'apcu_tmi',
+                'cache' => 'apcu',
                 'paths' => [
                     __DIR__ . '/../src/Entity'
                 ]
