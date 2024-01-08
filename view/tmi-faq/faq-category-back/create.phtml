@@ -15,12 +15,12 @@ echo $this->form()->openTag($form);
         <div class="col-12">
             <?php
             echo $this->formRow($form->get('id'));
-            if (!empty($this->message) && is_array($this->message)) {
+            if (! empty($this->message) && is_array($this->message)) {
                 echo '<div class="alert ' . $this->message["class"] . ' " role="alert">';
                 echo $this->translate($this->message['message']);
                 echo '</div>';
             }
-            if (!empty($form->getMessages()) && is_array($form->getMessages())) {
+            if (! empty($form->getMessages()) && is_array($form->getMessages())) {
                 echo '<div class="alert alert-danger" role="alert">';
                 echo '<pre>' . print_r($form->getMessages(), true) . '</pre>';
                 echo '</div>';
@@ -31,14 +31,14 @@ echo $this->form()->openTag($form);
                     <?php
                     echo $this->formLabel($form->get('name'));
                     echo $this->formSelect($form->get('name'));
-                    echo $this->formElementErrors($form->get('name'), ['class' => 'text-danger m-0']); ?>
+                    echo $this->formElementErrors($form->get('name'), ['class' => 'text-danger m-0']);
                     ?>
                 </div>
                 <div class="col-12 col-md-6">
                     <?php
                     echo $this->formLabel($form->get('slug'));
                     echo $this->formSelect($form->get('slug'));
-                    echo $this->formElementErrors($form->get('slug'), ['class' => 'text-danger m-0']); ?>
+                    echo $this->formElementErrors($form->get('slug'), ['class' => 'text-danger m-0']);
                     ?>
                 </div>
                 <div class="d-grid mt-3">

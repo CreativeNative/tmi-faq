@@ -11,41 +11,41 @@ echo $this->form()->openTag($form);
 if ($entity->getSlug() !== null) {
     $domainDe = $this->translate('terra-mia-domain', 'default', 'de_DE');
     $urlDe = $domainDe . $this->url(
-            'faq-front/category',
-            [
+        'faq-front/category',
+        [
                 'category' => $this->translate(
                     $entity->getSlug()->getTranslationKey(),
                     'default',
                     'de_DE'
                 ),
             ],
-            ['locale' => 'de_DE']
-        );
+        ['locale' => 'de_DE']
+    );
 
     $domainEn = $this->translate('terra-mia-domain', 'default', 'en_US');
     $urlEn = $domainEn . $this->url(
-            'faq-front/category',
-            [
+        'faq-front/category',
+        [
                 'category' => $this->translate(
                     $entity->getSlug()->getTranslationKey(),
                     'default',
                     'en_US'
                 ),
             ],
-            ['locale' => 'en_US']
-        );
+        ['locale' => 'en_US']
+    );
     $domainIt = $this->translate('terra-mia-domain', 'default', 'it_IT');
     $urlIt = $domainIt . $this->url(
-            'faq-front/category',
-            [
+        'faq-front/category',
+        [
                 'category' => $this->translate(
                     $entity->getSlug()->getTranslationKey(),
                     'default',
                     'it_IT'
                 ),
             ],
-            ['locale' => 'it_IT']
-        );
+        ['locale' => 'it_IT']
+    );
 }
 ?>
 <div class="container-fluid">
@@ -58,30 +58,30 @@ if ($entity->getSlug() !== null) {
                 </div>
                 <div>
                     <?php
-                    if (!empty($urlDe)) : ?>
+                    if (! empty($urlDe)) : ?>
                         <a target="_blank" href="<?php
                         echo $urlDe;
                         ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
                             echo $this->translate('German'); ?></a>
-                    <?php
+                        <?php
                     endif; ?>
                     <?php
-                    if (!empty($urlEn)) : ?>
+                    if (! empty($urlEn)) : ?>
                         <a target="_blank" href="<?php
                         echo $urlEn
                         ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
                             echo $this->translate('English'); ?>
                         </a>
-                    <?php
+                        <?php
                     endif; ?>
                     <?php
-                    if (!empty($urlIt)) : ?>
+                    if (! empty($urlIt)) : ?>
                         <a target="_blank" href="<?php
                         echo $urlIt
                         ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
                             echo $this->translate('Italian'); ?>
                         </a>
-                    <?php
+                        <?php
                     endif; ?>
                 </div>
             </div>
@@ -104,12 +104,12 @@ if ($entity->getSlug() !== null) {
 
             echo $this->formRow($form->get('id'));
 
-            if (!empty($this->message) && is_array($this->message)) {
+            if (! empty($this->message) && is_array($this->message)) {
                 echo '<div class="alert ' . $this->message["class"] . ' " role="alert">';
                 echo $this->translate($this->message['message']);
                 echo '</div>';
             }
-            if (!empty($form->getMessages()) && is_array($form->getMessages())) {
+            if (! empty($form->getMessages()) && is_array($form->getMessages())) {
                 echo '<div class="alert alert-danger" role="alert">';
                 echo '<pre>' . print_r($form->getMessages(), true) . '</pre>';
                 echo '</div>';
@@ -209,7 +209,7 @@ if ($entity->getSlug() !== null) {
 </div>
 <?php
 echo $this->form()->closeTag();
-if (!empty($this->layout()->cacheId)) {
+if (! empty($this->layout()->cacheId)) {
     $this->inlineScript()->appendFile('/js/faq-back-category-edit-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()

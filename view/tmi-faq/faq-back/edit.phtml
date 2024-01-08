@@ -18,27 +18,27 @@ echo $this->form()->openTag($form);
                     </div>
                     <div>
                         <?php
-                        if (!empty($this->urlDe)) : ?>
+                        if (! empty($this->urlDe)) : ?>
                             <a target="_blank" href="<?php echo $this->urlDe;
                             ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
                                 echo $this->translate('German'); ?></a>
-                        <?php
+                            <?php
                         endif; ?>
                         <?php
-                        if (!empty($this->urlEn)) : ?>
+                        if (! empty($this->urlEn)) : ?>
                             <a target="_blank" href="<?php echo $this->urlEn
                             ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
                                 echo $this->translate('English'); ?>
                             </a>
-                        <?php
+                            <?php
                         endif; ?>
                         <?php
-                        if (!empty($this->urlIt)) : ?>
+                        if (! empty($this->urlIt)) : ?>
                             <a target="_blank" href="<?php echo $this->urlIt
                             ?>" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt"></i> <?php
                                 echo $this->translate('Italian'); ?>
                             </a>
-                        <?php
+                            <?php
                         endif; ?>
                     </div>
                 </div>
@@ -49,13 +49,15 @@ echo $this->form()->openTag($form);
                     [
                         $this->translate('Category') => $this->url('faq-back/category'),
                         $this->translate($entity->getCategory()->getName()->getTranslationKey())
-                            => $this->url('faq-back/category/edit',
-                            [
+                            => $this->url(
+                                'faq-back/category/edit',
+                                [
                                 'id'     => $id,
                                 'locale' => $this->locale
-                            ]
-                        ),
-                        $this->translate('Question') => $this->url('faq-back/edit',
+                                ]
+                            ),
+                        $this->translate('Question') => $this->url(
+                            'faq-back/edit',
                             [
                                 'id'     => $id,
                                 'locale' => $this->locale
@@ -67,12 +69,12 @@ echo $this->form()->openTag($form);
 
                 echo $this->formRow($form->get('id'));
 
-                if (!empty($this->message) && is_array($this->message)) {
+                if (! empty($this->message) && is_array($this->message)) {
                     echo '<div class="alert ' . $this->message["class"] . ' " role="alert">';
                     echo $this->translate($this->message['message']);
                     echo '</div>';
                 }
-                if (!empty($form->getMessages()) && is_array($form->getMessages())) {
+                if (! empty($form->getMessages()) && is_array($form->getMessages())) {
                     echo '<div class="alert alert-danger" role="alert">';
                     echo '<pre>' . print_r($form->getMessages(), true) . '</pre>';
                     echo '</div>';
@@ -148,7 +150,7 @@ echo $this->form()->openTag($form);
     </div>
 <?php
 echo $this->form()->closeTag();
-if (!empty($this->layout()->cacheId)) {
+if (! empty($this->layout()->cacheId)) {
     $this->inlineScript()->appendFile('/js/faq-edit-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()

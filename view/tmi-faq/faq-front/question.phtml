@@ -4,11 +4,11 @@ $question = $this->question;
 $translatedCategoryName = $this->translate($question['category']['name']['translationKey']);
 $translatedCategorySlug = $this->translate($question['category']['slug']['translationKey']);
 $categoryUrl = $this->url(
-        'faq-front/category',
-        [
+    'faq-front/category',
+    [
             'category' => $translatedCategorySlug
         ]
-    );
+);
 $questionUrl = $this->url(
     'faq-front/category/question',
     [
@@ -57,7 +57,7 @@ $questionUrl = $this->url(
         </div>
     </div>
 <?php
-if (!empty($this->layout()->cacheId)) {
+if (! empty($this->layout()->cacheId)) {
     $this->inlineScript()->appendFile('/js/basic-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()

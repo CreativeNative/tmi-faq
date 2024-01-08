@@ -21,7 +21,6 @@
                     <tbody id="item_list">
                     <?php
                     foreach ($this->faqs as $faq) :
-
 //                        echo '<pre>' . print_r($faq, true) . '</pre>';
 
 //                        if (!empty($faq['category']['slug']['translationKey'])) {
@@ -78,9 +77,9 @@
                         <tr id="listItem_<?php echo $faq['id'] ?>">
                             <td>
                                 <div class="btn-group btn-group-sm btn-group-toggle">
-                                    <a class="btn btn-primary" title="Bearbeiten" href="<?php echo $this->url(
-                                        "faq-back/edit",["id" => $faq['id']]) ?>"><i class="fa
-                                    fa-edit"></i></a>
+                                    <a class="btn btn-primary" title="Bearbeiten" href="<?php
+                                    echo $this->url("faq-back/edit", ["id" => $faq['id']]);
+                                    ?>"><i class="fa fa-edit"></i></a>
                                     <a class="btn btn-outline-primary sortable" title="Sortieren" href="#"><i
                                                 class="fas fa-arrows-alt-v"></i></a>
                                 </div>
@@ -132,7 +131,7 @@
 $this->headLink()
     ->appendStylesheet('/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css');
 
-if (!empty($this->layout()->cacheId)) {
+if (! empty($this->layout()->cacheId)) {
     $this->inlineScript()->appendFile('/js/faq-back-index-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()

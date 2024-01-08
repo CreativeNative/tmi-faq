@@ -65,7 +65,7 @@ $categoryUrl = $domain . $this->url(
         </div>
     </div>
 <?php
-if (!empty($this->layout()->cacheId)) {
+if (! empty($this->layout()->cacheId)) {
     $this->inlineScript()->appendFile('/js/basic-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()

@@ -26,9 +26,9 @@
                         <tr id="listItem_<?php echo $category['id'] ?>">
                             <td>
                                 <div class="btn-group btn-group-sm btn-group-toggle">
-                                <a class="btn btn-primary" title="Bearbeiten" href="<?php echo $this->url(
-                                    "faq-back/category/edit",["id" => $category['id']]) ?>"><i class="fa
-                                    fa-edit"></i></a>
+                                <a class="btn btn-primary" title="Bearbeiten" href="<?php
+                                echo $this->url("faq-back/category/edit", ["id" => $category['id']]);
+                                ?>"><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-outline-primary sortable" title="Sortieren" href="#"><i
                                             class="fas fa-arrows-alt-v"></i></a>
                                 </div>
