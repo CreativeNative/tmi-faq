@@ -7,7 +7,6 @@ use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use TmiFaq\Controller\FaqBackController;
 use TmiFaq\Controller\FaqCategoryBackController;
-use TmiFaq\Controller\FaqFrontController;
 
 return [
     'doctrine'      => [
@@ -28,7 +27,6 @@ return [
     ],
     'controllers'   => [
         'factories' => [
-            FaqFrontController::class        => Controller\Factory\FaqFrontControllerFactory::class,
             FaqBackController::class         => Controller\Factory\FaqBackControllerFactory::class,
             FaqCategoryBackController::class => Controller\Factory\FaqCategoryBackControllerFactory::class,
         ],
@@ -109,43 +107,6 @@ return [
                     ],
                 ],
             ],
-            'faq-front' => [
-                'type'          => Segment::class,
-                'options'       => [
-                    'route'    => '/{url-faq}',
-                    'defaults' => [
-                        'controller' => FaqFrontController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-                'may_terminate' => true,
-                'child_routes'  => [
-                    'category' => [
-                        'type'          => Segment::class,
-                        'options'       => [
-                            'route'    => '/:category',
-                            'defaults' => [
-                                'controller' => FaqFrontController::class,
-                                'action'     => 'category',
-                            ],
-                        ],
-                        'may_terminate' => true,
-                        'child_routes'  => [
-                            'question' => [
-                                'type'    => Segment::class,
-                                'options' => [
-                                    'route'    => '/:slug',
-                                    'defaults' => [
-                                        'controller' => FaqFrontController::class,
-                                        'action'     => 'question',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-
         ],
     ],
     'form_elements' => [

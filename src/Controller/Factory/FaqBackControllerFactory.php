@@ -24,7 +24,6 @@ class FaqBackControllerFactory implements FactoryInterface
     {
         return new FaqBackController(
             $container->get(EntityManager::class),
-            $container->get(Translator::class),
             $container->get('FormElementManager')->get(FaqForm::class)
         );
     }
