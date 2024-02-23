@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <h1><?php echo $this->translate('FAQ') . ' - ' .  $this->translate('Questions'); ?></h1>
+            <h1><?php echo $this->translate('FAQ') . ' - ' . $this->translate('Questions'); ?></h1>
             <a href="<?php echo $this->url('faq-back/create') ?>" class="btn btn-primary mb-3"><?php
                 echo $this->translate('Create question') ?></a>
 
@@ -20,59 +20,75 @@
                     </thead>
                     <tbody id="item_list">
                     <?php
+                    $faqUrlDe = '';
+                    $copyDe = '';
+                    $slugEn = '';
+                    $questionEn = '';
+                    $faqUrlEn = '';
+                    $copyEn = '';
+                    $slugIt = '';
+                    $questionIt = '';
+                    $faqUrlIt = '';
+                    $copyIt = '';
                     foreach ($this->faqs as $faq) :
-//                        echo '<pre>' . print_r($faq, true) . '</pre>';
+                        foreach ($faq['translations'] as $translation) {
+                            if ($translation['locale'] === 'en_US' && $translation['field'] === 'slug') {
+                                $slugEn = $translation['content'];
+                            }
+                            if ($translation['locale'] === 'en_US' && $translation['field'] === 'question') {
+                                $questionEn = $translation['content'];
+                            }
+                            if ($translation['locale'] === 'it_IT' && $translation['field'] === 'slug') {
+                                $slugIt = $translation['content'];
+                            }
+                            if ($translation['locale'] === 'it_IT' && $translation['field'] === 'question') {
+                                $questionIt = $translation['content'];
+                            }
+                        }
 
-//                        if (!empty($faq['category']['slug']['translationKey'])) {
-//
-//                            $faqUrlDe = $this->translate('terra-mia-domain', 'default', 'de_DE') . $this->url(
-//                                    'faq-front/category/question',
-//                                    [
-//                                        'category' => $this->translate(
-//                                            $faq['category']['slug']['translationKey'],
-//                                            'default',
-//                                            'de_DE'
-//                                        ),
-//                                        'slug'     => $faq['slug'],
-//                                    ],
-//                                    ['locale' => 'de_DE']
-//                                );
-//                            $copyDe = $faq['question'] . '&#013;&#010;'
-//                                . (!empty($supplementDe) ? $supplementDe . '&#013;&#010;' : '') .
-//                                $faqUrlDe . '&#013;&#010;&#013;&#010;';
-//
-//                            $faqUrlEn = $this->translate('terra-mia-domain', 'default', 'en_US') . $this->url(
-//                                    'faq-front/category/question',
-//                                    [
-//                                        'category' => $this->translate(
-//                                            $faq['category']['slug']['translationKey'],
-//                                            'default',
-//                                            'en_US'
-//                                        ),
-//                                        'slug'     => $faq['slug'],
-//                                    ],
-//                                    ['locale' => 'en_US']
-//                                );
-//                            $copyEn = $faq['question'] . '&#013;&#010;'
-//                                . (!empty($supplementEn) ? $supplementEn . '&#013;&#010;' : '') .
-//                                $faqUrlEn . '&#013;&#010;&#013;&#010;';
-//
-//                            $faqUrlIt = $this->translate('terra-mia-domain', 'default', 'it_IT') . $this->url(
-//                                    'faq-front/category/question',
-//                                    [
-//                                        'category' => $this->translate(
-//                                            $faq['category']['slug']['translationKey'],
-//                                            'default',
-//                                            'it_IT'
-//                                        ),
-//                                        'slug'     => $faq['slug'],
-//                                    ],
-//                                    ['locale' => 'it_IT']
-//                                );
-//                            $copyIt = $faq['question'] . '&#013;&#010;'
-//                                . (!empty($supplementIt) ? $supplementIt . '&#013;&#010;' : '') .
-//                                $faqUrlIt . '&#013;&#010;&#013;&#010;';
-//                        }
+                        if (! empty($faq['category']['slug']['translationKey'])) {
+                            $faqUrlDe = $this->translate('mediation-domain', 'default', 'de_DE') . $this->url(
+                                'faq-front/category/question',
+                                [
+                                        'category' => $this->translate(
+                                            $faq['category']['slug']['translationKey'],
+                                            'default',
+                                            'de_DE'
+                                        ),
+                                        'slug' => $faq['slug'],
+                                    ],
+                                ['locale' => 'de_DE']
+                            );
+                            $copyDe = $faq['question'] . '&#013;&#010;' . $faqUrlDe . '&#013;&#010;&#013;&#010;';
+
+                            $faqUrlEn = $this->translate('mediation-domain', 'default', 'en_US') . $this->url(
+                                'faq-front/category/question',
+                                [
+                                        'category' => $this->translate(
+                                            $faq['category']['slug']['translationKey'],
+                                            'default',
+                                            'en_US'
+                                        ),
+                                        'slug' => $slugEn,
+                                    ],
+                                ['locale' => 'en_US']
+                            );
+                            $copyEn = $questionEn . '&#013;&#010;' . $faqUrlEn . '&#013;&#010;&#013;&#010;';
+
+                            $faqUrlIt = $this->translate('mediation-domain', 'default', 'it_IT') . $this->url(
+                                'faq-front/category/question',
+                                [
+                                        'category' => $this->translate(
+                                            $faq['category']['slug']['translationKey'],
+                                            'default',
+                                            'it_IT'
+                                        ),
+                                        'slug' => $slugIt,
+                                    ],
+                                ['locale' => 'it_IT']
+                            );
+                            $copyIt = $questionIt . '&#013;&#010;' . $faqUrlIt . '&#013;&#010;&#013;&#010;';
+                        }
                         ?>
                         <tr id="listItem_<?php echo $faq['id'] ?>">
                             <td>
