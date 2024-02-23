@@ -122,7 +122,7 @@ echo $this->form()->openTag($form);
 <?php
 echo $this->form()->closeTag();
 if (! empty($this->layout()->cacheId)) {
-    $this->inlineScript()->appendFile('/js/faq-edit-' . $this->layout()->cacheId . '.js');
+    $this->inlineScript()->appendFile('/js/admin-faq-edit-' . $this->layout()->cacheId . '.js');
 } else {
     $this->inlineScript()
         ->appendFile('/resources/admin/js/ckeditor_extended/build/ckeditor.js')
