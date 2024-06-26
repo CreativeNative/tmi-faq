@@ -262,7 +262,7 @@ class FaqEntity
 
     final public function getPartial(): string|null
     {
-        return $this->title;
+        return $this->partial;
     }
 
     final public function setPartial(string|null $partial): void
