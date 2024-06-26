@@ -19,15 +19,8 @@ echo $this->form()->openTag($form);
                 $this->pageBreadcrumbs()->setItems(
                     [
                         $this->translate('Category') => $this->url('faq-back/category'),
-                        $this->translate($entity->getCategory()->getName()->getTranslationKey())
-                            => $this->url(
-                                'faq-back/category/edit',
-                                [
-                                'id'     => $id,
-                                'locale' => $this->locale
-                                ]
-                            ),
-                        $this->translate('Question') => $this->url(
+                        $this->translate('Question') => $this->url('faq-back'),
+                        $this->question => $this->url(
                             'faq-back/edit',
                             [
                                 'id'     => $id,
