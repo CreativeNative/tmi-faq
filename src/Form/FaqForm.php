@@ -319,6 +319,13 @@ class FaqForm extends Form
                 [
                     'name'    =>  AlphaValidator::class,
                 ],
+                [
+                    'name'    => Validator\StringLength::class,
+                    'options' => [
+                        'min' => 3,
+                        'max' => 20,
+                    ],
+                ],
             ],
         ]);
 

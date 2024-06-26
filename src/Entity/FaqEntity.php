@@ -104,7 +104,7 @@ class FaqEntity
     private string|null $answer = null;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private string|null $partial = null;
 
