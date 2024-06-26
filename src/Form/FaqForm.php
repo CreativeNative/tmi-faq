@@ -10,6 +10,8 @@ use DoctrineModule\Form\Element\ObjectSelect;
 use Laminas\Filter;
 use Laminas\Form\Element;
 use Laminas\Form\Form;
+use Laminas\I18n\Filter\Alpha as AlphaFilter;
+use Laminas\I18n\Validator\Alpha as AlphaValidator;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
 use TmiFaq\Entity\FaqCategoryEntity;
@@ -37,7 +39,7 @@ class FaqForm extends Form
         $this->addInputFilter();
     }
 
-    protected function addElements(): void
+    private function addElements(): void
     {
         $this->add(
             [
@@ -59,10 +61,12 @@ class FaqForm extends Form
                     'object_manager'   => $this->entityManager,
                     'target_class'     => FaqCategoryEntity::class,
                     'label_attributes' => ['class' => 'required'],
-                    'label_generator'  => function ($entity) {
+                    'label_generator'  => static function ($entity) {
                         /** @var FaqCategoryEntity $entity */
-                        return $entity->getName() !== null && ! empty($entity->getName()->getTranslationKey())
-                            ? $entity->getName()->getTranslationKey() : '';
+                        if ($entity->getName() !== null && !empty($entity->getName()->getTranslationKey())) {
+                            return $entity->getName()->getTranslationKey();
+                        }
+                        return '';
                     },
                     'find_method'      => [
                         'name' => 'findAllCategoriesForSelect',
@@ -85,10 +89,12 @@ class FaqForm extends Form
                     'empty_option'    => 'Please select',
                     'object_manager'  => $this->entityManager,
                     'target_class'    => FaqCategoryEntity::class,
-                    'label_generator' => function ($entity) {
+                    'label_generator' => static function ($entity) {
                         /** @var FaqCategoryEntity $entity */
-                        return $entity->getName() !== null && ! empty($entity->getName()->getTranslationKey())
-                            ? $entity->getName()->getTranslationKey() : '';
+                        if ($entity->getName() !== null && !empty($entity->getName()->getTranslationKey())) {
+                            return $entity->getName()->getTranslationKey();
+                        }
+                        return '';
                     },
                     'find_method'     => [
                         'name' => 'findAllCategoriesForSelect',
@@ -160,6 +166,21 @@ class FaqForm extends Form
                 ],
             ]
         );
+
+        $this->add([
+            'type'       => Element\Select::class,
+            'name'       => 'partial',
+            'options'    => [
+                'label'         => 'Partial',
+                'empty_option'  => 'Please select',
+                'value_options' => [
+                    'pricing' => 'pricing',
+                ],
+            ],
+            'attributes' => [
+                'class' => 'form-select',
+            ],
+        ]);
 
         $this->add([
             'type'    => Element\Csrf::class,
@@ -286,6 +307,19 @@ class FaqForm extends Form
                 ],
             ]
         );
+
+        $inputFilter->add([
+            'name'       => 'partial',
+            'required'   => false,
+            'filters'    => [
+                ['name' => AlphaFilter::class],
+            ],
+            'validators' => [
+                [
+                    'name'    =>  AlphaValidator::class,
+                ],
+            ],
+        ]);
 
         $this->setInputFilter($inputFilter);
     }
