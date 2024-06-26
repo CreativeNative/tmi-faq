@@ -312,6 +312,7 @@ class FaqForm extends Form
             'name'       => 'partial',
             'required'   => false,
             'filters'    => [
+                ['name' => Filter\ToNull::class],
                 ['name' => AlphaFilter::class],
             ],
             'validators' => [

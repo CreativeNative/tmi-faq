@@ -32,10 +32,10 @@ class FaqEntity
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private ?int $id = null;
+    private int|null $id = null;
 
     /** @Gedmo\Locale */
-    private ?string $locale = null;
+    private string|null $locale = null;
 
     /**
      * One-To-Many, Bidirectional, One Faq has Many Translations.
@@ -50,7 +50,7 @@ class FaqEntity
     private Collection $translations;
 
     /** @ORM\ManyToOne(targetEntity="TmiFaq\Entity\FaqCategoryEntity") */
-    private ?FaqCategoryEntity $category = null;
+    private FaqCategoryEntity|null $category = null;
 
     /**
      * @ORM\ManyToMany(
@@ -74,39 +74,39 @@ class FaqEntity
 
     /**
      * @ORM\Column(type="string", length=70, nullable=true)
-     *
      * @Gedmo\Translatable
      */
-    private ?string $title = null;
+    private string|null $title = null;
 
     /**
      * @ORM\Column(type="string", length=160, nullable=true)
-     *
      * @Gedmo\Translatable
      */
-    private ?string $description = null;
+    private string|null $description = null;
 
     /**
      * @ORM\Column(type="string", length=70, nullable=true)
-     *
      * @Gedmo\Translatable
      */
-    private ?string $question = null;
+    private string|null $question = null;
 
     /**
      * @ORM\Column(type="string", length=70, unique=true, nullable=true)
-     *
      * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"question"})
      */
-    private ?string $slug = null;
+    private string|null $slug = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     *
      * @Gedmo\Translatable
      */
-    private ?string $answer = null;
+    private string|null $answer = null;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private string|null $partial = null;
 
     /**
      * Constructor
@@ -117,17 +117,17 @@ class FaqEntity
         $this->categories   = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    final public function getId(): int|null
     {
         return $this->id;
     }
 
-    public function setTranslatableLocale(string $locale): void
+    final public function setTranslatableLocale(string $locale): void
     {
         $this->locale = $locale;
     }
 
-    public function getTranslatableLocale(): string
+    final public function getTranslatableLocale(): string
     {
         return $this->locale;
     }
@@ -135,12 +135,12 @@ class FaqEntity
     /**
      * @return ArrayCollection
      */
-    public function getTranslations(): iterable
+    final public function getTranslations(): iterable
     {
         return $this->translations;
     }
 
-    public function addTranslation(FaqTranslationEntity $translation): void
+    final public function addTranslation(FaqTranslationEntity $translation): void
     {
         if (! $this->translations->contains($translation)) {
             $this->translations[] = $translation;
@@ -151,29 +151,29 @@ class FaqEntity
     /**
      * Get main category
      */
-    public function getCategory(): ?FaqCategoryEntity
+    final public function getCategory(): FaqCategoryEntity|null
     {
         return $this->category;
     }
 
-    public function setCategory(FaqCategoryEntity $category): void
+    final public function setCategory(FaqCategoryEntity $category): void
     {
         $this->category = $category;
     }
 
-    public function getCategories(): ?Collection
+    final public function getCategories(): Collection|null
     {
         return $this->categories;
     }
 
-    public function addCategories(ArrayCollection $categories): void
+    final public function addCategories(ArrayCollection $categories): void
     {
         foreach ($categories as $category) {
             $this->addCategory($category);
         }
     }
 
-    public function addCategory(FaqCategoryEntity $category): void
+    final public function addCategory(FaqCategoryEntity $category): void
     {
         if ($this->categories->contains($category)) {
             return;
@@ -183,14 +183,14 @@ class FaqEntity
         $category->addFaq($this);
     }
 
-    public function removeCategories(ArrayCollection $categories): void
+    final public function removeCategories(ArrayCollection $categories): void
     {
         foreach ($categories as $category) {
             $this->removeCategory($category);
         }
     }
 
-    public function removeCategory(FaqCategoryEntity $category): void
+    final public function removeCategory(FaqCategoryEntity $category): void
     {
         if (! $this->categories->contains($category)) {
             return;
@@ -200,63 +200,73 @@ class FaqEntity
         $category->removeFaq($this);
     }
 
-    public function getPosition(): int
+    final public function getPosition(): int
     {
         return $this->position;
     }
 
-    public function setPosition(int $position): void
+    final public function setPosition(int $position): void
     {
         $this->position = $position;
     }
 
-    public function getTitle(): ?string
+    final public function getTitle(): string|null
     {
         return $this->title;
     }
 
-    public function setTitle(?string $title): void
+    final public function setTitle(string|null $title): void
     {
         $this->title = $title;
     }
 
-    public function getSlug(): ?string
+    final public function getSlug(): string|null
     {
         return $this->slug;
     }
 
-    public function setSlug(?string $slug): void
+    final public function setSlug(string|null $slug): void
     {
         $this->slug = $slug;
     }
 
-    public function getDescription(): ?string
+    final public function getDescription(): string|null
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): void
+    final public function setDescription(string|null $description): void
     {
         $this->description = $description;
     }
 
-    public function getQuestion(): ?string
+    final public function getQuestion(): string|null
     {
         return $this->question;
     }
 
-    public function setQuestion(?string $question): void
+    final public function setQuestion(string|null $question): void
     {
         $this->question = $question;
     }
 
-    public function getAnswer(): ?string
+    final public function getAnswer(): string|null
     {
         return $this->answer;
     }
 
-    public function setAnswer(?string $answer): void
+    final public function setAnswer(string|null $answer): void
     {
         $this->answer = $answer;
+    }
+
+    final public function getPartial(): string|null
+    {
+        return $this->title;
+    }
+
+    final public function setPartial(string|null $partial): void
+    {
+        $this->partial = $partial;
     }
 }
