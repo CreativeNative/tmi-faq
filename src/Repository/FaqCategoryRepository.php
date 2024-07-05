@@ -41,9 +41,10 @@ class FaqCategoryRepository extends TranslationEntityRepository
             ->where(
                 $queryBuilder->expr()->orX(
                     $queryBuilder->expr()->isNull('CategoryTranslation.field'),
-                    $queryBuilder->expr()->eq('CategoryTranslation.field', 'title')
+                    $queryBuilder->expr()->eq('CategoryTranslation.field', ':title')
                 )
             )
+            ->setParameter('title', 'title', Types::STRING)
             ->orderBy('Faqs.position', 'ASC');
 
         switch ($locale) {
