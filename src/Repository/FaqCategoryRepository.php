@@ -98,26 +98,21 @@ class FaqCategoryRepository extends TranslationEntityRepository
     /**
      * @throws NonUniqueResultException
      */
-    final public function getGermanNameAndSlugById(int $entityId): array|null
+    final public function getGermanFaqCategoryTitleById(int $entityId): array|null
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
         $queryBuilder->select(
-            'partial Category.{id}',
-            'partial Slug.{id, translationKey}',
-            'partial Name.{id, translationKey}'
+            'partial Category.{id, title}'
         )
             ->from(FaqCategoryEntity::class, 'Category')
-            ->leftJoin('Category.slug', 'Slug')
-            ->leftJoin('Category.name', 'Name')
             ->where($queryBuilder->expr()->eq('Category.id', ':id'))
-            ->setParameter('id', $entityId)
-            ->orderBy('Category.position', 'ASC');
+            ->setParameter('id', $entityId);
 
         return $this->getOneOrNullResult(
             $queryBuilder,
             'de_DE',
-            'getGermanNameAndSlugById-' . $entityId,
+            'getGermanFaqCategoryTitleById-' . $entityId,
             AbstractQuery::HYDRATE_ARRAY
         );
     }
