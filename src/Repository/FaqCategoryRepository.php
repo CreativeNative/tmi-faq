@@ -38,10 +38,12 @@ class FaqCategoryRepository extends TranslationEntityRepository
             ->leftJoin('Category.slug', 'Slug')
             ->leftJoin('Category.name', 'Name')
             ->leftJoin('Category.faqs', 'Faqs')
-            ->andWhere(
-                $queryBuilder->expr()->eq('CategoryTranslation.field', ':title')
+            ->where(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->isNull('CategoryTranslation.field'),
+                    $queryBuilder->expr()->eq('CategoryTranslation.field', 'title')
+                )
             )
-            ->setParameter('title', 'title', Types::STRING)
             ->orderBy('Faqs.position', 'ASC');
 
         switch ($locale) {
