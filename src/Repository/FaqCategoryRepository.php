@@ -19,7 +19,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
      *
      * @throws NonUniqueResultException
      */
-    public function getCategory(string $slug): ?array
+    final public function getCategory(string $slug): array|null
     {
         $locale = locale_get_default();
 
@@ -64,7 +64,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
     /**
      * Query for getting all categories in index page
      */
-    public function getCategoriesWithFaqs(): ?array
+    final public function getCategoriesWithFaqs(): array|null
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -89,9 +89,36 @@ class FaqCategoryRepository extends TranslationEntityRepository
     }
 
     /**
+     * @throws NonUniqueResultException
+     */
+    final public function getGermanNameAndSlugById(int $entityId): array|null
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+
+        $queryBuilder->select(
+            'partial Category.{id}',
+            'partial Slug.{id, translationKey}',
+            'partial Name.{id, translationKey}'
+        )
+            ->from(FaqCategoryEntity::class, 'Category')
+            ->leftJoin('Category.slug', 'Slug')
+            ->leftJoin('Category.name', 'Name')
+            ->where($queryBuilder->expr()->eq('Category.id', ':id'))
+            ->setParameter('id', $entityId)
+            ->orderBy('Category.position', 'ASC');
+
+        return $this->getOneOrNullResult(
+            $queryBuilder,
+            'de_DE',
+            'getGermanNameAndSlugById-' . $entityId,
+            AbstractQuery::HYDRATE_ARRAY
+        );
+    }
+
+    /**
      * - NOT CACHED -
      */
-    public function findAllCategories(string $locale = ''): ?array
+    final public function findAllCategories(string $locale = ''): array|null
     {
         if (empty($locale)) {
             $locale = locale_get_default();
@@ -116,7 +143,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
      * - NOT CACHED -
      * Query for select element
      */
-    public function findAllCategoriesForSelect(): ?array
+    final public function findAllCategoriesForSelect(): array|null
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -132,7 +159,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
      *
      * @throws NonUniqueResultException
      */
-    public function findByIdandLocale(int $entityId, string $locale): ?FaqCategoryEntity
+    final public function findByIdandLocale(int $entityId, string $locale): FaqCategoryEntity|null
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
