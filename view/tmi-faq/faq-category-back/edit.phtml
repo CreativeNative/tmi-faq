@@ -120,7 +120,9 @@ echo $this->form()->openTag($form);
         </div>
         <div class="col-12">
             <?php
-            echo $this->formLabel($form->get('teaser'));
+            echo $this->formLabel($form->get('teaser')); ?>
+            <div id="word-count-teaser" class="small"></div>
+            <?php
             echo $this->formElement($form->get('teaser'));
             echo $this->formElementErrors($form->get('teaser'), ['class' => 'text-danger m-0']);
             ?>

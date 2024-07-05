@@ -97,16 +97,19 @@ echo $this->form()->openTag($form);
                 <?php echo $this->formElementErrors($form->get('description'), ['class' => 'text-danger m-0']); ?>
             </div>
             <div class="col-12">
+                <?php echo $this->formLabel($form->get('answer')); ?>
+                <div id="word-count-answer" class="small"></div>
                 <?php
-                echo $this->formLabel($form->get('answer'));
                 echo $this->formTextarea($form->get('answer'));
-                echo $this->formElementErrors($form->get('answer'), ['class' => 'text-danger m-0']); ?>
+                echo $this->formElementErrors($form->get('answer'), ['class' => 'text-danger m-0']);
+                ?>
             </div>
             <div class="col-12">
                 <?php
                 echo $this->formLabel($form->get('partial'));
                 echo $this->formSelect($form->get('partial'));
-                echo $this->formElementErrors($form->get('partial'), ['class' => 'text-danger m-0']); ?>
+                echo $this->formElementErrors($form->get('partial'), ['class' => 'text-danger m-0']);
+                ?>
             </div>
             <div class="d-grid mt-3">
                 <?php
