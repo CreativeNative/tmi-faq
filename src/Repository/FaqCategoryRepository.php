@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TmiFaq\Repository;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
 use RuntimeException;
@@ -27,14 +28,20 @@ class FaqCategoryRepository extends TranslationEntityRepository
 
         $queryBuilder->select(
             'Category',
+            'partial CategoryTranslation.{id, content, field, locale}',
             'partial Slug.{id, translationKey}',
             'partial Name.{id, translationKey}',
             'partial Faqs.{id, question, slug}'
         )
             ->from(FaqCategoryEntity::class, 'Category')
+            ->leftJoin('Category.translations', 'CategoryTranslation')
             ->leftJoin('Category.slug', 'Slug')
             ->leftJoin('Category.name', 'Name')
             ->leftJoin('Category.faqs', 'Faqs')
+            ->andWhere(
+                $queryBuilder->expr()->eq('CategoryTranslation.field', ':title')
+            )
+            ->setParameter('title', 'title', Types::STRING)
             ->orderBy('Faqs.position', 'ASC');
 
         switch ($locale) {
@@ -51,7 +58,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
                 throw new RuntimeException('Unexpected value');
         }
 
-        $queryBuilder->setParameter('slug', $slug);
+        $queryBuilder->setParameter('slug', $slug, Types::STRING);
 
         return $this->getOneOrNullResult(
             $queryBuilder,
