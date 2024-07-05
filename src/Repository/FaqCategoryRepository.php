@@ -120,6 +120,21 @@ class FaqCategoryRepository extends TranslationEntityRepository
         );
     }
 
+    final public function getCategoriesForSitemap(): array|null
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+
+        $queryBuilder->select(
+            'partial Category.{id}',
+            'partial Slug.{id, translationKey}'
+        )
+            ->from(FaqCategoryEntity::class, 'Category')
+            ->leftJoin('Category.slug', 'Slug')
+            ->orderBy('Category.position', 'ASC');
+
+        return $this->getArrayResult($queryBuilder, locale_get_default(), 'getFAQCategoriesForSitemap');
+    }
+
     /**
      * - NOT CACHED -
      */

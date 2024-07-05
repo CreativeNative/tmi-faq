@@ -30,7 +30,7 @@ class FaqRepository extends TranslationEntityRepository
      *
      * @throws NonUniqueResultException
      */
-    public function findBySlug(string $slug): ?array
+    final public function findBySlug(string $slug): ?array
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -74,7 +74,7 @@ class FaqRepository extends TranslationEntityRepository
     /**
      * @throws NonUniqueResultException
      */
-    public function getGermanNameAndSlugById(int $entityId): ?array
+    final public function getGermanNameAndSlugById(int $entityId): ?array
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -91,12 +91,37 @@ class FaqRepository extends TranslationEntityRepository
         );
     }
 
+    final public function getSitemap(): array|null
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+
+        $queryBuilder->select(
+            'partial Faq.{id, slug}',
+            'partial FaqTranslation.{id, content, field, locale}',
+            'partial Category.{id}',
+            'partial Slug.{id, translationKey}'
+        )
+            ->from(FaqEntity::class, 'Faq')
+            ->leftJoin('Faq.translations', 'FaqTranslation')
+            ->leftJoin('Faq.category', 'Category')
+            ->leftJoin('Category.slug', 'Slug')
+            ->where(
+                $queryBuilder->expr()->andX(
+                    $queryBuilder->expr()->isNotNull('FaqTranslation.field', ':slugField'),
+                    $queryBuilder->expr()->eq('FaqTranslation.field', ':slugField')
+                )
+            )
+            ->setParameter('slugField', 'slug', Types::STRING);
+
+        return $this->getArrayResult($queryBuilder, $this->locale, 'getFAQSitemap');
+    }
+
     /**
      * - NOT CACHED -
      *
      * Query for faq index
      */
-    public function getQuestionsAsArray(): ?array
+    final public function getQuestionsAsArray(): ?array
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -122,7 +147,7 @@ class FaqRepository extends TranslationEntityRepository
      *
      * @throws NonUniqueResultException
      */
-    public function findByIdForUpdate(int $entityId): ?FaqEntity
+    final public function findByIdForUpdate(int $entityId): ?FaqEntity
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
