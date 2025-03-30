@@ -15,6 +15,10 @@
     {
       "type": "vcs",
       "url": "git@github.com:CreativeNative/tmi-translation.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:CreativeNative/tmi-helper.git"
     }
   ],
   "minimum-stability": "dev",
@@ -22,6 +26,7 @@
   "require": {
     "php": "^8.2",
     "creativenative/tmi-translation": "dev-main",
+    "creativenative/tmi-helper": "dev-main",
     "laminas/laminas-i18n": "^2.29.0",
     "laminas/laminas-mvc-i18n": "^1.9.0",
     "gedmo/doctrine-extensions": "^v3.19.0",

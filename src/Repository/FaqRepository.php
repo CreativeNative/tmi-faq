@@ -10,12 +10,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\NonUniqueResultException;
 use TmiFaq\Entity\FaqEntity;
+use TmiHelper\Traits\SlugNormalizerTrait;
 use TmiTranslation\Repository\TranslationEntityRepository;
 
 use function locale_get_default;
 
 class FaqRepository extends TranslationEntityRepository
 {
+    use SlugNormalizerTrait;
+
     private string $locale;
 
     public function __construct(EntityManagerInterface $entityManager, ClassMetadata $class)
@@ -66,7 +69,7 @@ class FaqRepository extends TranslationEntityRepository
         return $this->getOneOrNullResult(
             $queryBuilder,
             $this->locale,
-            'faq-' . $slug . '-' . $this->locale,
+            'faq-' . $this->normalizeSlug($slug) . '-' . $this->locale,
             AbstractQuery::HYDRATE_ARRAY
         );
     }
@@ -86,7 +89,7 @@ class FaqRepository extends TranslationEntityRepository
         return $this->getOneOrNullResult(
             $queryBuilder,
             'de_DE',
-            'getGermanNameAndSlugById-' . $entityId,
+            'getGermanNameAndSlugById-' . $this->normalizeSlug($entityId),
             AbstractQuery::HYDRATE_ARRAY
         );
     }
@@ -113,7 +116,11 @@ class FaqRepository extends TranslationEntityRepository
             )
             ->setParameter('slugField', 'slug', Types::STRING);
 
-        return $this->getArrayResult($queryBuilder, $this->locale, 'getFAQSitemap');
+        return $this->getArrayResult(
+            $queryBuilder,
+            $this->locale,
+            'getFAQSitemap-' . $this->normalizeSlug($this->locale)
+        );
     }
 
     /**

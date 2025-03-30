@@ -9,12 +9,15 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
 use RuntimeException;
 use TmiFaq\Entity\FaqCategoryEntity;
+use TmiHelper\Traits\SlugNormalizerTrait;
 use TmiTranslation\Repository\TranslationEntityRepository;
 
 use function locale_get_default;
 
 class FaqCategoryRepository extends TranslationEntityRepository
 {
+    use SlugNormalizerTrait;
+
     /**
      * Query for getting category by slug
      *
@@ -58,15 +61,15 @@ class FaqCategoryRepository extends TranslationEntityRepository
                 $queryBuilder->andWhere($queryBuilder->expr()->eq('Slug.italian', ':slug'));
                 break;
             default:
-                throw new RuntimeException('Unexpected value');
+                throw new RuntimeException('Unexpected language slug with locale ' . $locale);
         }
 
         $queryBuilder->setParameter('slug', $slug, Types::STRING);
 
         return $this->getOneOrNullResult(
             $queryBuilder,
-            locale_get_default(),
-            'findByCategorySlug-' . $slug,
+            $locale,
+            'findByCategorySlug-' . $this->normalizeSlug($slug),
             AbstractQuery::HYDRATE_ARRAY
         );
     }
@@ -76,6 +79,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
      */
     final public function getCategoriesWithFaqs(): array
     {
+        $locale       = locale_get_default();
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
         $queryBuilder->select(
@@ -93,8 +97,8 @@ class FaqCategoryRepository extends TranslationEntityRepository
 
         return $this->getArrayResult(
             $queryBuilder,
-            locale_get_default(),
-            'getCategories'
+            $locale,
+            'getCategories_' . $locale
         );
     }
 
@@ -115,7 +119,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
         return $this->getOneOrNullResult(
             $queryBuilder,
             'de_DE',
-            'getGermanFaqCategoryTitleById-' . $entityId,
+            'getGermanFaqCategoryTitleById-' . $this->normalizeSlug($entityId),
             AbstractQuery::HYDRATE_ARRAY
         );
     }
