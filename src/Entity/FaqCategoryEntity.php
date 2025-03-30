@@ -145,7 +145,7 @@ class FaqCategoryEntity
         $this->position = $position;
     }
 
-    final public function getFaqs(): Collection|null
+    final public function getFaqs(): Collection
     {
         return $this->faqs;
     }
@@ -184,7 +184,7 @@ class FaqCategoryEntity
         $faq->removeCategory($this);
     }
 
-    final public function getTranslations(): Collection|null
+    final public function getTranslations(): Collection
     {
         return $this->translations;
     }

@@ -63,7 +63,7 @@ class FaqForm extends Form
                     'label_attributes' => ['class' => 'required'],
                     'label_generator'  => static function ($entity) {
                         /** @var FaqCategoryEntity $entity */
-                        if ($entity->getName() !== null && !empty($entity->getName()->getTranslationKey())) {
+                        if ($entity->getName() !== null && ! empty($entity->getName()->getTranslationKey())) {
                             return $entity->getName()->getTranslationKey();
                         }
                         return '';
@@ -91,7 +91,7 @@ class FaqForm extends Form
                     'target_class'    => FaqCategoryEntity::class,
                     'label_generator' => static function ($entity) {
                         /** @var FaqCategoryEntity $entity */
-                        if ($entity->getName() !== null && !empty($entity->getName()->getTranslationKey())) {
+                        if ($entity->getName() !== null && ! empty($entity->getName()->getTranslationKey())) {
                             return $entity->getName()->getTranslationKey();
                         }
                         return '';
@@ -317,7 +317,7 @@ class FaqForm extends Form
             ],
             'validators' => [
                 [
-                    'name'    =>  AlphaValidator::class,
+                    'name' => AlphaValidator::class,
                 ],
                 [
                     'name'    => Validator\StringLength::class,

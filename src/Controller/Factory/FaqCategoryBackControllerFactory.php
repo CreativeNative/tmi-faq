@@ -19,7 +19,7 @@ class FaqCategoryBackControllerFactory implements FactoryInterface
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): Controller
+    public function __invoke(ContainerInterface $container, $requestedName, array|null $options = null): Controller
     {
         return new Controller(
             $container->get(EntityManager::class),

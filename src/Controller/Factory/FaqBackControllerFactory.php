@@ -6,7 +6,6 @@ namespace TmiFaq\Controller\Factory;
 
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
-use Laminas\I18n\Translator\Translator;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -20,7 +19,7 @@ class FaqBackControllerFactory implements FactoryInterface
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): FaqBackController
+    public function __invoke(ContainerInterface $container, $requestedName, array|null $options = null): FaqBackController
     {
         return new FaqBackController(
             $container->get(EntityManager::class),

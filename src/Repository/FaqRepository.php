@@ -30,7 +30,7 @@ class FaqRepository extends TranslationEntityRepository
      *
      * @throws NonUniqueResultException
      */
-    final public function findBySlug(string $slug): ?array
+    final public function findBySlug(string $slug): array|null
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -74,7 +74,7 @@ class FaqRepository extends TranslationEntityRepository
     /**
      * @throws NonUniqueResultException
      */
-    final public function getGermanNameAndSlugById(int $entityId): ?array
+    final public function getGermanNameAndSlugById(int $entityId): array|null
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -91,7 +91,7 @@ class FaqRepository extends TranslationEntityRepository
         );
     }
 
-    final public function getSitemap(): array|null
+    final public function getSitemap(): array
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -107,7 +107,7 @@ class FaqRepository extends TranslationEntityRepository
             ->leftJoin('Category.slug', 'Slug')
             ->where(
                 $queryBuilder->expr()->andX(
-                    $queryBuilder->expr()->isNotNull('FaqTranslation.field', ':slugField'),
+                    $queryBuilder->expr()->isNotNull('FaqTranslation.field'),
                     $queryBuilder->expr()->eq('FaqTranslation.field', ':slugField')
                 )
             )
@@ -121,7 +121,7 @@ class FaqRepository extends TranslationEntityRepository
      *
      * Query for faq index
      */
-    final public function getQuestionsAsArray(): ?array
+    final public function getQuestionsAsArray(): array
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -147,7 +147,7 @@ class FaqRepository extends TranslationEntityRepository
      *
      * @throws NonUniqueResultException
      */
-    final public function findByIdForUpdate(int $entityId): ?FaqEntity
+    final public function findByIdForUpdate(int $entityId): FaqEntity|null
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 

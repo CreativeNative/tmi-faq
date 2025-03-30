@@ -74,24 +74,28 @@ class FaqEntity
 
     /**
      * @ORM\Column(type="string", length=70, nullable=true)
+     *
      * @Gedmo\Translatable
      */
     private string|null $title = null;
 
     /**
      * @ORM\Column(type="string", length=160, nullable=true)
+     *
      * @Gedmo\Translatable
      */
     private string|null $description = null;
 
     /**
      * @ORM\Column(type="string", length=70, nullable=true)
+     *
      * @Gedmo\Translatable
      */
     private string|null $question = null;
 
     /**
      * @ORM\Column(type="string", length=70, unique=true, nullable=true)
+     *
      * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"question"})
      */
@@ -99,13 +103,12 @@ class FaqEntity
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     *
      * @Gedmo\Translatable
      */
     private string|null $answer = null;
 
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=20, nullable=true) */
     private string|null $partial = null;
 
     /**
@@ -161,7 +164,7 @@ class FaqEntity
         $this->category = $category;
     }
 
-    final public function getCategories(): Collection|null
+    final public function getCategories(): Collection
     {
         return $this->categories;
     }

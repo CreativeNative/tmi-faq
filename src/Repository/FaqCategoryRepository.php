@@ -74,7 +74,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
     /**
      * Query for getting all categories in index page
      */
-    final public function getCategoriesWithFaqs(): array|null
+    final public function getCategoriesWithFaqs(): array
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -120,7 +120,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
         );
     }
 
-    final public function getCategoriesForSitemap(): array|null
+    final public function getCategoriesForSitemap(): array
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
 
@@ -138,7 +138,7 @@ class FaqCategoryRepository extends TranslationEntityRepository
     /**
      * - NOT CACHED -
      */
-    final public function findAllCategories(string $locale = ''): array|null
+    final public function findAllCategories(string $locale = ''): array
     {
         if (empty($locale)) {
             $locale = locale_get_default();

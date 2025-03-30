@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace TmiFaq\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\NotSupported;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use DoctrineModule\Validator\NoObjectExists;
 use Laminas\Http\PhpEnvironment\Request;
 use Laminas\Http\Response;
-use Laminas\I18n\Translator\Translator;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use TmiFaq\Entity\FaqEntity;
@@ -38,6 +38,9 @@ class FaqBackController extends AbstractActionController
         $this->locale        = locale_get_default();
     }
 
+    /**
+     * @throws NotSupported
+     */
     public function indexAction(): ViewModel
     {
         /** @var FaqRepository $repository */
@@ -87,9 +90,7 @@ class FaqBackController extends AbstractActionController
                 ]
             );
 
-            if ($form->getInputFilter() !== null) {
-                $form->getInputFilter()->get('question')->getValidatorChain()->attach($validator);
-            }
+            $form->getInputFilter()->get('question')->getValidatorChain()->attach($validator);
 
             if ($form->isValid()) {
                 /** @var FaqEntity $validatedEntity */
@@ -191,9 +192,11 @@ class FaqBackController extends AbstractActionController
      */
     private function getNameAndLinks(FaqEntity $guide, FaqRepository $repository): array
     {
-        $translations = [];
-        if ($guide->getTranslations() !== null) {
-            foreach ($guide->getTranslations() as $row) {
+        $translations           = [];
+        $translationsCollection = $guide->getTranslations();
+
+        if (! $translationsCollection->isEmpty()) {
+            foreach ($translationsCollection as $row) {
                 $translations[$row->getLocale()][$row->getField()] = $row->getContent();
             }
         }
